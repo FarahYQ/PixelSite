@@ -14,21 +14,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'profile')
 
-    def create(self, validated_date):
+    def create(self, validated_data):
         # create user
         user = User.objects.create(
-            username = validated_date['username'],
-            first_name = validated_date['first_name'],
-            last_name = validated_date['last_name'],
-            email = validated_date['email']
+            username = validated_data['username'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
+            email = validated_data['email']
         )
 
         # create profile
-        profile_data = validated_date.pop('profile')
+        profile_data = validated_data.pop('profile')
         profile = Profile.objects.create(
-            privacy = profile_data['privacy'],
-            image = profile_data['image']
+            user_id = user.id,
+            privacy = profile_data['privacy']
         )
 
         return user
         
+
