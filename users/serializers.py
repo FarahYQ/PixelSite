@@ -47,7 +47,7 @@ class UserCreateSerializer(ModelSerializer):
         user.save()
 
         # create profile
-        profile_data = validated_data.pop('profile')
+        profile_data = validated_data.get('profile', {'privacy': 'public'})
         profile = Profile.objects.create(
             user_id = user.id,
             privacy = profile_data['privacy']

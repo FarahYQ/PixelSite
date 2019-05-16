@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 
 class UserCreate(APIView):
     serializer_class = UserCreateSerializer
-    # permission_classes = [AllowAny]
+    permission_classes = [AllowAny]
     def post(self, request, format='json'):
         serializer = UserCreateSerializer(data = request.data)
         if serializer.is_valid():
