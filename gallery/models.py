@@ -9,6 +9,6 @@ class Photo(models.Model):
     caption = models.CharField(max_length=40)
     image = models.ImageField(upload_to=upload_to)
     description = models.TextField()
-    lat = models.DecimalField(max_digits=10, decimal_places=8)
-    lng = models.DecimalField(max_digits=11, decimal_places=8)
+    lat = models.DecimalField(max_digits=8, decimal_places=6)
+    lng = models.DecimalField(max_digits=9, decimal_places=6)
     location = models.CharField(max_length=255)
