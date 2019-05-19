@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import AddPhoto from './add_photo';
 
 class App extends Component {
     render() {
         return (
             <div>
-                <h1>This is PixelSite!</h1>
+                < AddPhoto />
             </div>
         )
     }

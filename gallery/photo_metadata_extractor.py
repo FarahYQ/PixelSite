@@ -43,10 +43,8 @@ def convert_to_degrees(value):
     return d + (m/60.0) + (s/3600.0)
 
 def get_lat_lng(exif_data):
-    lat = None
-    lng = None
-    print('=========')
-    print(exif_data)
+    lat = 0
+    lng = 0
     if "GPSInfo" in exif_data:
         gps_info = exif_data["GPSInfo"]
 

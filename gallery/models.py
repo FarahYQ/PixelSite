@@ -12,3 +12,4 @@ class Photo(models.Model):
     lat = models.DecimalField(max_digits=8, decimal_places=6)
     lng = models.DecimalField(max_digits=9, decimal_places=6)
     location = models.CharField(max_length=255)
+
