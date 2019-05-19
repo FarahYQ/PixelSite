@@ -20,7 +20,8 @@ from rest_framework_jwt.views import obtain_jwt_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/token', obtain_jwt_token),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    path('gallery/', include('gallery.urls'))
 ]
 
 '''
