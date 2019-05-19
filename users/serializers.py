@@ -58,12 +58,12 @@ class UserCreateSerializer(ModelSerializer):
 class UserLoginSerializer(ModelSerializer):
     username = CharField(required=False, allow_blank=True)
     email = EmailField(required=False, allow_blank=True)
-    token = CharField(allow_blank=True, read_only=True)
+    password = CharField()
     class Meta:
         model = User
         
-        fields = ('username', 'email', 'password', 'token')        
-
+        fields = ('username', 'email', 'password')        
+    
     def validate(self, data):
         email = data.get('email', None)
         username = data.get('username', None)
@@ -76,13 +76,16 @@ class UserLoginSerializer(ModelSerializer):
             Q(email=email) |
             Q(username=username)
         )
-
-        if user.exists() and user.count == 1:
+        if user.exists():
             user_obj = user.first()
         else:
             raise ValidationError('This username/email is not valid.')
-
         if user_obj:
             if not user_obj.check_password(password):
                 raise ValidationError('Incorrect credentials. Please try again.')
-        data['token'] = 'Some random token'
+        return user_obj
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
