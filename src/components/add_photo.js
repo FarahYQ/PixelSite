@@ -18,10 +18,11 @@ class AddPhoto extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // const fd = new FormData();
-        // fd.append('image', this.state.selectedImage, this.state.selectedImage.name)
-        console.log(this.state)
-        const fd = this.state;
+        const fd = new FormData();
+        fd.append('image', this.state.image, this.state.image.name)
+        fd.append('caption', this.state.caption)
+        fd.append('location', this.state.location)
+        fd.append('description', this.state.description)
         axios.post('http://localhost:8000/gallery/upload', fd)
             .then(res => {
                 console.log(res);
@@ -59,7 +60,7 @@ class AddPhoto extends Component {
             <form onSubmit={(e) => this.handleSubmit(e)}>
                 <div className="input-title">Caption</div>
                 <div className="input-tagline">Add a short caption for your photo.</div>
-                <input type="value" onChange={(e) => this.update('caption')}/>
+                <input type="value" onChange={this.update('caption')}/>
 
                 <div className="input-title">Attach Photo</div>
                 <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
@@ -67,11 +68,11 @@ class AddPhoto extends Component {
                 
                 <div className="input-title">Location</div>
                 <div className="input-tagline">Add details about location like city, state, or country.</div>
-                <input className="start-camp-duration" type="value" onChange={(e) => this.update('location')}/>
+                <input className="start-camp-duration" type="value" onChange={this.update('location')}/>
 
                 <div className="input-title">Photo Description</div>
                 <div className="input-tagline">Describe your photo in detail. What were you doing and who were you with? What do you love about this photo? This'll help you when searching later.</div>
-                <input type="value" onChange={(e) => this.update('location')}/>
+                <input type="value" onChange={this.update('description')}/>
                 <div></div>
                 <div className="create-campaign-errors">{this.renderErrors()}</div>
                 <input className="start-camp-submit" type="submit" value="SUBMIT"/>

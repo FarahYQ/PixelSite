@@ -10,10 +10,15 @@ class PhotoUpload(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, format='json'):
+        print("==============")
+        print(request.data)
         serializer = PhotoSerializer(data = request.data)
+        print('-====---=====')
         if serializer.is_valid():
             validated_data = request.data
             validated_data['user'] = request.user
-            serializer.create(validated_data=request.data)
+            print("------------")
+            print(validated_data)
+            serializer.create(validated_data=validated_data)
             return Response(serializer.data)
-        return Response(serializer.error_messages)
+        return Response(serializer.error_messages, status=HTTP_400_BAD_REQUEST)
