@@ -1,7 +1,8 @@
 from rest_framework.serializers import (
-    ModelSerializer, CharField, EmailField, ValidationError
+    Serializer, ModelSerializer, CharField, EmailField, ValidationError
 )
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.db.models import Q
 from .models import Profile
 
@@ -55,7 +56,7 @@ class UserCreateSerializer(ModelSerializer):
 
         return user
 
-class UserLoginSerializer(ModelSerializer):
+class UserLoginSerializer(Serializer):
     username = CharField(required=False, allow_blank=True)
     email = EmailField(required=False, allow_blank=True)
     password = CharField()
@@ -65,27 +66,33 @@ class UserLoginSerializer(ModelSerializer):
         fields = ('username', 'email', 'password')        
     
     def validate(self, data):
-        email = data.get('email', None)
-        username = data.get('username', None)
-        password = data['password']
-        user_obj = None
-        if not email and not username:
-            raise ValidationError("A username or email is required to login.")
+        # email = data.get('email', None)
+        # username = data.get('username', None)
+        # password = data['password']
+
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise ValidationError("Incorrect credentials. Please try again.")
+
+        # user_obj = None
+        # if not email and not username:
+        #     raise ValidationError("A username or email is required to login.")
         
-        user = User.objects.filter(
-            Q(email=email) |
-            Q(username=username)
-        )
-        if user.exists():
-            user_obj = user.first()
-        else:
-            raise ValidationError('This username/email is not valid.')
-        if user_obj:
-            if not user_obj.check_password(password):
-                raise ValidationError('Incorrect credentials. Please try again.')
-        return user_obj
+        # user = User.objects.filter(
+        #     Q(email=email) |
+        #     Q(username=username)
+        # )
+        # if user.exists():
+        #     user_obj = user.first()
+        # else:
+        #     raise ValidationError('This username/email is not valid.')
+        # if user_obj:
+        #     if not user_obj.check_password(password):
+        #         raise ValidationError('Incorrect credentials. Please try again.')
+        # return user_obj
 
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'email')

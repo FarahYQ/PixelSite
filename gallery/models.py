@@ -5,7 +5,7 @@ def upload_to(instance, filename):
     return 'images/%s/%s' % (instance.user.id, filename)
 
 class Photo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="photos", on_delete=models.CASCADE)
     caption = models.CharField(max_length=40)
     image = models.ImageField(upload_to=upload_to)
     description = models.TextField()

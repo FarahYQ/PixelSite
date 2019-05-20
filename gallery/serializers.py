@@ -6,7 +6,7 @@ from .models import Photo
 from .photo_metadata_extractor import extract_geodata, get_lat_lng
 
 
-class PhotoSerializer(ModelSerializer):
+class PhotoUploadSerializer(ModelSerializer):
 
     class Meta:
         model = Photo
@@ -24,3 +24,7 @@ class PhotoSerializer(ModelSerializer):
             lng = lng,
             location = validated_data['location']
         )
+
+class PhotoSerializer(ModelSerializer):
+    model = Photo
+    fields = '__all__'
