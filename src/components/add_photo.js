@@ -47,7 +47,7 @@ class AddPhoto extends Component {
     }
 
     render() {
-
+        console.log('addphoto')
         return (
             
         <div className="campaign-form">
