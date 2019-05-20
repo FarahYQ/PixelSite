@@ -8,19 +8,14 @@ import AddPhoto from './add_photo';
 class App extends Component {
     render() {
 
-        // return (
-        //     <div>
-        //         < AddPhoto />
-        //     </div>
-        // )
         return (
-                <Router>
-                    <Switch>
-                        <Route exact path='/login' component={LoginFormContainer}/>
-                        <Route exact path='/register' component={RegisterFormContainer}/>
-                        < Route exact path='/' component={AddPhoto} />
-                    </Switch>
-                </Router>
+            <Router>
+                <Switch>
+                    <Route exact path='/login' component={LoginFormContainer}/>
+                    <Route exact path='/register' component={RegisterFormContainer}/>
+                    < Route exact path='/' component={AddPhoto} />
+                </Switch>
+            </Router>
         )
     }
 }
