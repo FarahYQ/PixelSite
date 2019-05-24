@@ -1,11 +1,13 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: path.join(__dirname, 'assets/src/js/index'),
     output: {
-        path: path.join(__dirname, '/dist'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, 'assets/dist'),
+        filename: '[name]-[hash].js'
     },
     resolve: {
         extensions: ['.js', '*']
@@ -22,8 +24,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
-        })
-    ]
+        new BundleTracker({
+            path: __dirname,
+            filename: 'webpack-stats.json'
+        }),
+    ],
 }
