@@ -15,15 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from rest_framework_jwt.views import obtain_jwt_token
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='frontend/index.html')),
     path('auth/', include('knox.urls')),
     path('users/', include('users.urls')),
     path('gallery/', include('gallery.urls'))
 ]
 
-'''
-curl -X POST -d "username=FizzBuzz1&password=testing31" http://localhost:8000/auth/token
-'''
