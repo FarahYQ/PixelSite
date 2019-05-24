@@ -33,7 +33,7 @@ class AddPhoto extends Component {
         }
 
     renderErrors() {
-        return 'errors';
+        return '';
     }
 
     update(field) {
@@ -65,7 +65,13 @@ class AddPhoto extends Component {
                 <div className="input-title">Attach Photo</div>
                 <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
                 <input type="file"  onChange={(e) => this.imageSelectedHandler(e)}/>
-                
+
+                <div className="input-group mb-3">
+                    <div className="custom-file">
+                        <input type="file" className="custom-file-input" id="inputGroupFile02"/>
+                        <label className="custom-file-label" for="inputGroupFile02">Choose file</label>
+                    </div>
+                </div>
                 <div className="input-title">Location</div>
                 <div className="input-tagline">Add details about location like city, state, or country.</div>
                 <input className="start-camp-duration" type="value" onChange={this.update('location')}/>
@@ -75,6 +81,7 @@ class AddPhoto extends Component {
                 <input type="value" onChange={this.update('description')}/>
                 <div></div>
                 <div className="create-campaign-errors">{this.renderErrors()}</div>
+                <br/>
                 <input className="start-camp-submit" type="submit" value="SUBMIT"/>
             </form>
         </div>
