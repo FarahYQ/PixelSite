@@ -71,6 +71,9 @@ class AddPhoto extends Component {
                         <input type="file" className="custom-file-input" id="inputGroupFile02"/>
                         <label className="custom-file-label" for="inputGroupFile02">Choose file</label>
                     </div>
+                    <div className="input-group-append">
+                        <span className="input-group-text" id="">Upload</span>
+                    </div>
                 </div>
                 <div className="input-title">Location</div>
                 <div className="input-tagline">Add details about location like city, state, or country.</div>

@@ -6,17 +6,23 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework import viewsets, permissions, generics
 
 class UserCreate(generics.GenericAPIView):
+
     serializer_class = UserCreateSerializer
     permission_classes = [permissions.AllowAny]
     def post(self, request, format='json'):
+        print("-------")
+        print(request.data)
         serializer = UserCreateSerializer(data = request.data)
+        print("hello", serializer.is_valid())
+        print(serializer.errors)
         if serializer.is_valid():
             user = serializer.create(validated_data=request.data)
             return Response({
                 "user": UserSerializer(user, context=self.get_serializer_context()).data,
                 "token": AuthToken.objects.create(user)[1]
             })
-        return Response(serializer.error_messages)
+        
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
 class UserLogin(generics.GenericAPIView):

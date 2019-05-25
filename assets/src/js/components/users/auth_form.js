@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { signup } from '../../utils/session_util';
+import axios from 'axios';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -33,11 +34,27 @@ class AuthForm extends Component {
     this.setState({
         image: event.target.files[0]
     })
+    console.log(this.state);
 }
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.processForm(user)
+  //   const user = {
+  //     "username": "busy",
+  //     "first_name": "fizzy",
+  //     "last_name": "busy",
+  //     "email": "fizzy27@gmail.com",
+  //     "password": "testing314",
+  //     "profile": {
+  //         "privacy": "public",
+  //         "image": null
+  //     }
+  // }
+    axios.defaults.xsrfCookieName = 'csrftoken'
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+    console.log(user)
+    signup(user);
+    // this.props.processForm(user)
     // .then(this.props.closeModal);
   }
 
@@ -69,7 +86,13 @@ class AuthForm extends Component {
     // if (this.props.formType === 'SIGN UP') {
     if (true) {
       mod1 = (
-    <div><input type="first_name"
+    <div><input type="username"
+      placeholder="Username"
+      value={this.state.username}
+      onChange={this.update('username')}
+      className="login-input"/>
+      <br/>
+    <input type="first_name"
         placeholder="First Name"
         value={this.state.first_name}
         onChange={this.update('first_name')}
@@ -79,12 +102,6 @@ class AuthForm extends Component {
         placeholder="Last Name"
         value={this.state.last_name}
         onChange={this.update('last_name')}
-        className="login-input"/>
-      <br/>
-    <input type="email"
-        placeholder="Email"
-        value={this.state.email}
-        onChange={this.update('email')}
         className="login-input"/>
       <br/>
       </div>
@@ -101,7 +118,7 @@ class AuthForm extends Component {
       </select>
       <br/>
       <input type="file"
-        value={this.state.email}
+        value={this.state.image}
         onChange={(e) => this.imageSelectedHandler(e)}
         className="login-input"/>
       <br/>

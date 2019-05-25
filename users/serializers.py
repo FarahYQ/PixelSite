@@ -1,23 +1,32 @@
 from rest_framework.serializers import (
-    Serializer, ModelSerializer, CharField, EmailField, ValidationError
+    Serializer, ModelSerializer, CharField, EmailField, ImageField, ValidationError
 )
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.db.models import Q
 from .models import Profile
+from rest_framework.parsers import JSONParser
 
 # User & Profile Serializer
 class ProfileSerializer(ModelSerializer):
+    image = ImageField(allow_null=True,required=False, validators=['Check image'])
     class Meta:
         model = Profile
         fields = ('privacy', 'image')
 
 class UserCreateSerializer(ModelSerializer):
+    print("in the serializer class")
     profile = ProfileSerializer(required=True)
 
     # email2 = EmailField(label="Confirm Email")
     class Meta:
         model = User
+        # username = CharField(validators=['Check username'])
+        # first_name = CharField(validators=['Check first_name'])
+        # last_name = CharField(validators=['Check last_name'])
+        # email = EmailField(validators=['Check email'])
+        # password = CharField(validators=['Check password'])
+
         fields = ('username', 'first_name', 'last_name', 'email', 'password', 'profile')
         extra_kwargs = {"password": {"write_only": True}}
 
@@ -36,7 +45,7 @@ class UserCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         # create user
-
+        print("creating with the serializer")
         user = User(
             username = validated_data['username'],
             first_name = validated_data['first_name'],
@@ -46,7 +55,6 @@ class UserCreateSerializer(ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
-
         # create profile
         profile_data = validated_data.get('profile', {'privacy': 'public'})
         profile = Profile.objects.create(

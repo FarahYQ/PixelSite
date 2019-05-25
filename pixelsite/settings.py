@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'webpack_loader',
     'knox',
+    'corsheaders',
     'users.apps.UsersConfig',
     'gallery.apps.GalleryConfig'
 ]
@@ -136,6 +137,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
 ]
 
+# cors whitelist
+CORS_ORIGIN_WHITELIST = 'localhost8000',
+
 # Setting up AWS S3 for file upload storage
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -162,5 +166,5 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-    }
+    },
 }
