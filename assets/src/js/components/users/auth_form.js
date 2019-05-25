@@ -39,17 +39,6 @@ class AuthForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-  //   const user = {
-  //     "username": "busy",
-  //     "first_name": "fizzy",
-  //     "last_name": "busy",
-  //     "email": "fizzy27@gmail.com",
-  //     "password": "testing314",
-  //     "profile": {
-  //         "privacy": "public",
-  //         "image": null
-  //     }
-  // }
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
     console.log(user)

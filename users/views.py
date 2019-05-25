@@ -10,11 +10,8 @@ class UserCreate(generics.GenericAPIView):
     serializer_class = UserCreateSerializer
     permission_classes = [permissions.AllowAny]
     def post(self, request, format='json'):
-        print("-------")
-        print(request.data)
         serializer = UserCreateSerializer(data = request.data)
-        print("hello", serializer.is_valid())
-        print(serializer.errors)
+
         if serializer.is_valid():
             user = serializer.create(validated_data=request.data)
             return Response({

@@ -15,7 +15,6 @@ class ProfileSerializer(ModelSerializer):
         fields = ('privacy', 'image')
 
 class UserCreateSerializer(ModelSerializer):
-    print("in the serializer class")
     profile = ProfileSerializer(required=True)
 
     # email2 = EmailField(label="Confirm Email")
@@ -45,7 +44,6 @@ class UserCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         # create user
-        print("creating with the serializer")
         user = User(
             username = validated_data['username'],
             first_name = validated_data['first_name'],
