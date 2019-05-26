@@ -25,26 +25,35 @@ class AuthForm extends Component {
   }
 
   update(field) {
+
     return (e) => {
       this.setState({ [field]: e.target.value })
+      console.log(this.state);
     };
   };
 
   imageSelectedHandler(e) {
-    this.setState({
-        image: event.target.files[0]
-    })
-    console.log(this.state);
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      this.setState({
+          profile: {
+            privacy: this.state["profile"]["privacy"],
+            image: file
+          }
+      })
+    }
+    console.log(this.state)
 }
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
+
     axios.defaults.xsrfCookieName = 'csrftoken'
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-    console.log(user)
     signup(user);
-    // this.props.processForm(user)
-    // .then(this.props.closeModal);
   }
 
   demoSubmit(e) {
@@ -97,7 +106,7 @@ class AuthForm extends Component {
       );
       mod2 = (
       <div>
-      <select type=""
+      <select type="last_name"
         placeholder="Last Name"
         value={this.state.privacy}
         onChange={this.update('privacy')}

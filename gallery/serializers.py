@@ -1,5 +1,5 @@
 from rest_framework.serializers import (
-    ModelSerializer, CharField, EmailField, ValidationError, RelatedField, SerializerMethodField
+    ModelSerializer, CharField, EmailField, ValidationError, RelatedField, SerializerMethodField, DecimalField
 )
 from django.contrib.auth.models import User
 from .models import Photo
@@ -7,14 +7,14 @@ from .photo_metadata_extractor import extract_geodata, get_lat_lng
 
 
 class PhotoUploadSerializer(ModelSerializer):
+    # lat = DecimalField(allow_null=True, required=False, max_digits=8, decimal_places=6)
+    # lng = DecimalField(allow_null=True, required=False, max_digits=9, decimal_places=6)
 
     class Meta:
         model = Photo
         fields = ('caption', 'image', 'description', 'location')
     
     def create(self, validated_data):
-        exif_data = extract_geodata(validated_data['image'])
-        lat, lng = get_lat_lng(exif_data)
         Photo.objects.create(
             user_id = validated_data['user'].id,
             caption = validated_data['caption'],
@@ -26,5 +26,6 @@ class PhotoUploadSerializer(ModelSerializer):
         )
 
 class PhotoSerializer(ModelSerializer):
-    model = Photo
-    fields = '__all__'
+    class Meta:
+        model = Photo
+        fields = '__all__'

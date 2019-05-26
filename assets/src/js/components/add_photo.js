@@ -11,7 +11,9 @@ class AddPhoto extends Component {
             caption: "",
             image: null,
             location: "",
-            description: ""
+            description: "",
+            lat: null,
+            lng: null
         }
 
     }
@@ -23,7 +25,9 @@ class AddPhoto extends Component {
         fd.append('caption', this.state.caption)
         fd.append('location', this.state.location)
         fd.append('description', this.state.description)
-        axios.post('http://localhost:8000/gallery/upload', fd)
+        axios.defaults.xsrfCookieName = 'csrftoken'
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+        axios.post('gallery/upload', fd)
             .then(res => {
                 console.log(res);
             })
@@ -41,8 +45,17 @@ class AddPhoto extends Component {
       }
 
     imageSelectedHandler(e) {
+        // e.preventDefault();
+        // let reader = new FileReader();
+        // let files = e.target.files
+        // reader.readAsDataURL(files[0]);
+        // reader.onload = (e) => {
+        //     this.setState({
+        //         image: e.target.result
+        //     });
+        // };
         this.setState({
-            image: event.target.files[0]
+            image: e.target.files[0]
         })
     }
 
@@ -66,15 +79,7 @@ class AddPhoto extends Component {
                 <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
                 <input type="file"  onChange={(e) => this.imageSelectedHandler(e)}/>
 
-                <div className="input-group mb-3">
-                    <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="inputGroupFile02"/>
-                        <label className="custom-file-label" for="inputGroupFile02">Choose file</label>
-                    </div>
-                    <div className="input-group-append">
-                        <span className="input-group-text" id="">Upload</span>
-                    </div>
-                </div>
+
                 <div className="input-title">Location</div>
                 <div className="input-tagline">Add details about location like city, state, or country.</div>
                 <input className="start-camp-duration" type="value" onChange={this.update('location')}/>
