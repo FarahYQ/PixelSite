@@ -12,7 +12,7 @@ from .models import Photo
 
 class PhotoUpload(APIView):
     serializer_class = PhotoUploadSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request, format='json'):
         data = request.data
@@ -21,10 +21,13 @@ class PhotoUpload(APIView):
         data["lat"] = "%.6f" % lat
         data["lng"] = "%.6f" % lng
         data["user"] = request.user.id
+        print("serializing", data)
         serializer = PhotoSerializer(data = request.data)
+        print(serializer.is_valid(), serializer.errors)
         if serializer.is_valid():
             validated_data = data
             owner = User.objects.get(id=validated_data['user'])
+            print("it's valid", validated_data)
             Photo.objects.create(
                 user = owner,
                 caption = validated_data['caption'],
@@ -40,6 +43,5 @@ class PhotoUpload(APIView):
 class PhotoViewSet(viewsets.ModelViewSet):
     serializer_class = PhotoSerializer
     permission_classes = [permissions.AllowAny]
-
     def get_queryset(self):
         return self.request.user.photos.all()
