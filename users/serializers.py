@@ -20,12 +20,6 @@ class UserCreateSerializer(ModelSerializer):
     # email2 = EmailField(label="Confirm Email")
     class Meta:
         model = User
-        # username = CharField(validators=['Check username'])
-        # first_name = CharField(validators=['Check first_name'])
-        # last_name = CharField(validators=['Check last_name'])
-        # email = EmailField(validators=['Check email'])
-        # password = CharField(validators=['Check password'])
-
         fields = ('username', 'first_name', 'last_name', 'email', 'password', 'profile')
         extra_kwargs = {"password": {"write_only": True}}
 

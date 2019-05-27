@@ -13,21 +13,28 @@ class AddPhoto extends Component {
             location: "",
             description: "",
             lat: null,
-            lng: null
+            lng: null,
+            photoURL: ""
         }
+        this.handleFile = this.handleFile.bind(this);
 
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        const fd = new FormData();
-        fd.append('image', this.state.image, this.state.image.name)
-        fd.append('caption', this.state.caption)
-        fd.append('location', this.state.location)
-        fd.append('description', this.state.description)
+        const formData = new FormData();
+        if (this.state.image) {
+            formData.append('image', this.state.image)
+        }
+        formData.append('caption', this.state.caption)
+        formData.append('location', this.state.location)
+        formData.append('description', this.state.description)
         axios.defaults.xsrfCookieName = 'csrftoken'
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-        axios.post('gallery/upload', fd)
+        axios.post('gallery/upload', formData, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }})
             .then(res => {
                 console.log(res);
             })
@@ -42,25 +49,22 @@ class AddPhoto extends Component {
 
     update(field) {
         return (e)=>(this.setState({[field]:e.target.value}))
-      }
-
-    imageSelectedHandler(e) {
-        // e.preventDefault();
-        // let reader = new FileReader();
-        // let files = e.target.files
-        // reader.readAsDataURL(files[0]);
-        // reader.onload = (e) => {
-        //     this.setState({
-        //         image: e.target.result
-        //     });
-        // };
-        this.setState({
-            image: e.target.files[0]
-        })
     }
 
+    handleFile(e) {
+    const file = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => {
+        console.log("this worked", file)
+        this.setState({ image: file, photoURL: "url"});
+        console.log(this.state)
+    };
+    if (file) {
+        fileReader.readAsDataURL(file);
+    }
+}
+
     render() {
-        console.log('addphoto')
         return (
             
         <div className="campaign-form">
@@ -77,7 +81,7 @@ class AddPhoto extends Component {
 
                 <div className="input-title">Attach Photo</div>
                 <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
-                <input type="file"  onChange={(e) => this.imageSelectedHandler(e)}/>
+                <input type="file"  onChange={this.handleFile}/>
 
 
                 <div className="input-title">Location</div>

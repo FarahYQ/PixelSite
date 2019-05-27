@@ -1,11 +1,14 @@
 from django.shortcuts import render
+from knox.models import AuthToken
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from knox.models import AuthToken
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework import viewsets, permissions
 from .serializers import PhotoUploadSerializer, PhotoSerializer
 from .photo_metadata_extractor import extract_geodata, get_lat_lng
+from django.contrib.auth.models import User
+from .models import Photo
+
 
 class PhotoUpload(APIView):
     serializer_class = PhotoUploadSerializer
@@ -20,8 +23,17 @@ class PhotoUpload(APIView):
         data["user"] = request.user.id
         serializer = PhotoSerializer(data = request.data)
         if serializer.is_valid():
-            validated_data = request.data
-            serializer.create(validated_data=validated_data)
+            validated_data = data
+            owner = User.objects.get(id=validated_data['user'])
+            Photo.objects.create(
+                user = owner,
+                caption = validated_data['caption'],
+                image = validated_data['image'],
+                description = validated_data['description'],
+                lat = validated_data['lat'],
+                lng = validated_data['lng'],
+                location = validated_data['location']
+            )
             return Response(serializer.data)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
