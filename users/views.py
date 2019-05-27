@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework import viewsets, permissions, generics
+from django.contrib.auth import login, authenticate
 
 class UserCreate(generics.GenericAPIView):
 
@@ -28,10 +29,12 @@ class UserLogin(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data = request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-
+        user_data = serializer.validated_data
+        print(user_data, request.data)
+        user = authenticate(username=request.data['username'], password=request.data['password'])
+        login(request, user)
         return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "user": UserSerializer(user_data, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
 '''
