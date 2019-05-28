@@ -15,6 +15,6 @@ export const addPhoto = (formData) => {
                 console.log("helllo success")
             }).catch(errors => {
             console.log("hellllooooo errors!")
-            console.log("errors are:", errors.response.status);
+            console.log("errors are:", errors.response);
         })
 }
