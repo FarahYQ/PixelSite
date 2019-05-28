@@ -21,13 +21,10 @@ class PhotoUpload(APIView):
         data["lat"] = "%.6f" % lat
         data["lng"] = "%.6f" % lng
         data["user"] = request.user.id
-        print("serializing", data)
         serializer = PhotoSerializer(data = request.data)
-        print(serializer.is_valid(), serializer.errors)
         if serializer.is_valid():
             validated_data = data
             owner = User.objects.get(id=validated_data['user'])
-            print("it's valid", validated_data)
             Photo.objects.create(
                 user = owner,
                 caption = validated_data['caption'],

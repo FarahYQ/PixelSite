@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { withRouter } from 'react-router-dom';
 // import merge from 'lodash/merge';
 import axios from 'axios';
+import * as PhotoAPIUtil from '../utils/photo_utils';
 
 class AddPhoto extends Component {
     constructor() {
@@ -29,18 +30,7 @@ class AddPhoto extends Component {
         formData.append('caption', this.state.caption)
         formData.append('location', this.state.location)
         formData.append('description', this.state.description)
-        axios.defaults.xsrfCookieName = 'csrftoken'
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-        axios.post('gallery/upload', formData, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }})
-            .then(res => {
-                console.log(res);
-            })
-            .catch(errors => {
-                console.log(errors);
-            })
+        PhotoAPIUtil.addPhoto(formData)
         }
 
     renderErrors() {
@@ -55,9 +45,7 @@ class AddPhoto extends Component {
     const file = e.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
-        console.log("this worked", file)
         this.setState({ image: file, photoURL: "url"});
-        console.log(this.state)
     };
     if (file) {
         fileReader.readAsDataURL(file);

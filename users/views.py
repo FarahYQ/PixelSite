@@ -30,7 +30,6 @@ class UserLogin(generics.GenericAPIView):
         serializer = self.get_serializer(data = request.data)
         serializer.is_valid(raise_exception=True)
         user_data = serializer.validated_data
-        print(user_data, request.data)
         user = authenticate(username=request.data['username'], password=request.data['password'])
         login(request, user)
         return Response({

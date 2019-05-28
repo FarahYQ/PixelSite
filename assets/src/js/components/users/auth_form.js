@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { signup } from '../../utils/session_util';
+import * as sessionAPIUtils from '../../utils/session_util';
 import axios from 'axios';
 
 class AuthForm extends Component {
@@ -50,10 +50,7 @@ class AuthForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-    signup(user);
+    sessionAPIUtils.signup(user);
   }
 
   demoSubmit(e) {
