@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"main":[{"name":"main-85d24214a35f12e6da44.js","path":"/Users/busyfizzy/Documents/CodeProjects/pixelsite/assets/dist/main-85d24214a35f12e6da44.js"}]}}
+{"status":"done","chunks":{"main":[{"name":"main-d574459d090d989ba610.js","path":"/Users/busyfizzy/Documents/CodeProjects/pixelsite/assets/dist/main-d574459d090d989ba610.js"}]},"error":"ModuleNotFoundError","message":"Module not found: Error: Can't resolve '../../action/board_actions' in '/Users/busyfizzy/Documents/CodeProjects/pixelsite/assets/src/js/components/photos'"}

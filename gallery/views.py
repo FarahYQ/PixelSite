@@ -16,11 +16,12 @@ class PhotoUpload(APIView):
 
     def post(self, request, format='json'):
         data = request.data
-        exif_data = extract_geodata(data['image'])
-        lat, lng = get_lat_lng(exif_data)
-        data["lat"] = "%.6f" % lat
-        data["lng"] = "%.6f" % lng
-        data["user"] = request.user.id
+        if 'image' in data:
+            exif_data = extract_geodata(data['image'])
+            lat, lng = get_lat_lng(exif_data)
+            data["lat"] = "%.6f" % lat
+            data["lng"] = "%.6f" % lng
+            data["user"] = request.user.id
         serializer = PhotoSerializer(data = request.data)
         if serializer.is_valid():
             validated_data = data

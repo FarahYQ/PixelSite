@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-// import { connect  } from 'react-redux';
-// import { withRouter } from 'react-router-dom';
-// import merge from 'lodash/merge';
-import axios from 'axios';
-import * as PhotoAPIUtil from '../utils/photo_utils';
+import { connect } from 'react-redux';
+import { addPhoto } from '../actions/photo_actions'
 
 class AddPhoto extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             caption: "",
             image: null,
@@ -18,7 +15,6 @@ class AddPhoto extends Component {
             photoURL: ""
         }
         this.handleFile = this.handleFile.bind(this);
-
     }
 
     handleSubmit(e) {
@@ -30,11 +26,20 @@ class AddPhoto extends Component {
         formData.append('caption', this.state.caption)
         formData.append('location', this.state.location)
         formData.append('description', this.state.description)
-        PhotoAPIUtil.addPhoto(formData)
+        this.props.postPhoto(formData);
         }
 
     renderErrors() {
-        return '';
+        const errors = this.props.errors;
+        return (
+            <div>
+                <ul>
+                {Object.keys(errors).map((key, index) => {
+                    return <li key={index}>{`${key}: ${errors[key]}`}</li>
+                })}
+                </ul>
+            </div>
+        )
     }
 
     update(field) {
@@ -60,7 +65,6 @@ class AddPhoto extends Component {
             <div className="title"> Gallery </div>
             <div className="basics"> Add Photo </div>
             </div>
-            <div className="basics-section">Basics</div>
             <div className="basics-instr">Add another photo for your gallery!</div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
                 <div className="input-title">Caption</div>
@@ -86,8 +90,19 @@ class AddPhoto extends Component {
             </form>
         </div>
         )
-
     }
 }
 
-export default AddPhoto;
+const mapStateToProps = state => {
+    return {
+        errors: state.errors.photos
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        postPhoto: photo => dispatch(addPhoto(photo))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto);
