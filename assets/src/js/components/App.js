@@ -5,7 +5,7 @@ import RegisterFormContainer from './users/register_form_container';
 import LoginFormContainer from './users/login_form_container';
 import AddPhoto from './add_photo';
 import NavBar from './nav/navbar';
-import UploadPhoto from './photos/upload_photo';
+import PhotoGallery from './photos/photo_index';
 
 class App extends Component {
     render() {
@@ -18,8 +18,8 @@ class App extends Component {
                     <Switch>
                         <Route exact path='/login' component={LoginFormContainer}/>
                         <Route exact path='/register' component={RegisterFormContainer}/>
-                        <Route exact path='/' component={AddPhoto} />
-                        <Route exact path='/gallery/photos/add' component ={AddPhoto} />
+                        <Route exact path='/' component={PhotoGallery} />
+                        <Route exact path='/photos/add' component ={AddPhoto} />
                     </Switch>
                 </Router>
             </div>

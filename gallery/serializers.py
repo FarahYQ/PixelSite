@@ -15,3 +15,7 @@ class PhotoSerializer(ModelSerializer):
     class Meta:
         model = Photo
         fields = '__all__'
+
+    # def to_representation(self, instance):
+    #     data = super(PhotoSerializer, self).to_representation(instance)
+    #     return data

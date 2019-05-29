@@ -11,3 +11,7 @@ export const addPhoto = (formData) => {
         }
     });
 };
+
+export const getAllPhotos = () => {
+    return axios.get('gallery/photos');
+};
