@@ -19,8 +19,7 @@
         margin-top: 5px;
     }
     .attach-photo-form {
-        // display: flex;
-        // justify-content: space-around;
+        margin: 5px;
         font-size: 20px;
         font-weight: 700;
         -webkit-font-smoothing: antialiased;
@@ -38,7 +37,7 @@
 
     .attach-photo {
         width: 336px;
-        height: 448px;
+        height: 468px;
         cursor: pointer;
         border: 2px dashed #d1d1d1;
         border-radius: 4px;
@@ -53,10 +52,17 @@
     }
 
     .attach-photo-file-input::before {
+        width: 320px;
+        height: 432px;
+        content: '';
         content: 'Drag and drop or click to upload';
         font-weight: 400;
         font-size: 16px;
         text-align: center;
+        content {
+            display: inline-block;
+            vertical-align: middle;
+        }       
         top: 50%;
         left: 50%;
         position: absolute;
@@ -65,9 +71,8 @@
         color: #999;
     }
     .photo-preview {
-        width: auto;
-        height: auto;
-        width: 340px;
+        width: 310px;
+        height: 422px;
         border-radius: 16px;
         /* opacity: 0.7; */
     }
@@ -85,7 +90,8 @@
     }
     
     .photo-preview-wrap {
-        // display: none;
+        width: 336px;
+        height: 468px;
         font-size: 20px;
         color: black;
         padding: 12px;

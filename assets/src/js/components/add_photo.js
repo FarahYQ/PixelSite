@@ -97,7 +97,7 @@ class AddPhoto extends Component {
                     <div></div>
                     <div className="add-photo-errors">{this.renderErrors()}</div>
                     <br/>
-                    <input className="start-camp-submit" type="submit" value="SUBMIT"/>
+                    <input type="submit" value="SUBMIT"/>
                 </form>
             </div>
         </div>
