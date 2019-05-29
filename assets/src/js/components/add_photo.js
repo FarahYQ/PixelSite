@@ -15,6 +15,7 @@ class AddPhoto extends Component {
             photoURL: ""
         }
         this.handleFile = this.handleFile.bind(this);
+        this.handleRemovePhoto = this.handleRemovePhoto.bind(this);
     }
 
     handleSubmit(e) {
@@ -47,47 +48,58 @@ class AddPhoto extends Component {
     }
 
     handleFile(e) {
-    const file = e.currentTarget.files[0];
-    const fileReader = new FileReader();
-    fileReader.onloadend = () => {
-        this.setState({ image: file, photoURL: "url"});
-    };
-    if (file) {
-        fileReader.readAsDataURL(file);
+        const file = e.currentTarget.files[0];
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            this.setState({ image: file, photoURL: fileReader.result});
+            console.log(this.state)
+        };
+        if (file) {
+            fileReader.readAsDataURL(file);
+        }
     }
-}
+
+    handleRemovePhoto(e) {
+        this.setState({ image: null, photoURL: null });
+    }
 
     render() {
+
+        const imagePreview = this.state.photoURL ? <div className='photo-preview-wrap'>
+            <i className="fa fa-trash" aria-hidden="true" onClick={this.handleRemovePhoto}></i>
+            <img className='photo-preview' src={this.state.photoURL}/>
+        </div> : null;
+
         return (
-            
-        <div className="campaign-form">
-            <div className="title-row">
-            <div className="title"> Gallery </div>
-            <div className="basics"> Add Photo </div>
+        <div className="container">
+            <div className="photo-form">
+                <form onSubmit={(e) => this.handleSubmit(e)}>
+                    <div className="headline">Add Another Photo</div>
+                    <div className="input-title">Photo Caption</div>
+                    <input type="value" onChange={this.update('caption')}/>
+
+                    <div className="input-title">Attach Photo</div>
+                    <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
+                    <div className="attach-photo-form">
+                        <div className="attach-photo">
+                            {imagePreview ? imagePreview : <input type="file" className="attach-photo-file-input" onChange={this.handleFile}/>}
+                        </div>
+                    </div>
+
+
+                    <div className="input-title">Location</div>
+                    <div className="input-tagline">Add details about location like city, state, or country.</div>
+                    <input type="value" onChange={this.update('location')}/>
+
+                    <div className="input-title">Photo Description</div>
+                    <div className="input-tagline">Describe your photo in detail. What were you doing and who were you with? What do you love about this photo? This'll help you when searching later.</div>
+                    <input type="value" onChange={this.update('description')}/>
+                    <div></div>
+                    <div className="add-photo-errors">{this.renderErrors()}</div>
+                    <br/>
+                    <input className="start-camp-submit" type="submit" value="SUBMIT"/>
+                </form>
             </div>
-            <div className="basics-instr">Add another photo for your gallery!</div>
-            <form onSubmit={(e) => this.handleSubmit(e)}>
-                <div className="input-title">Caption</div>
-                <div className="input-tagline">Add a short caption for your photo.</div>
-                <input type="value" onChange={this.update('caption')}/>
-
-                <div className="input-title">Attach Photo</div>
-                <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
-                <input type="file"  onChange={this.handleFile}/>
-
-
-                <div className="input-title">Location</div>
-                <div className="input-tagline">Add details about location like city, state, or country.</div>
-                <input className="start-camp-duration" type="value" onChange={this.update('location')}/>
-
-                <div className="input-title">Photo Description</div>
-                <div className="input-tagline">Describe your photo in detail. What were you doing and who were you with? What do you love about this photo? This'll help you when searching later.</div>
-                <input type="value" onChange={this.update('description')}/>
-                <div></div>
-                <div className="create-campaign-errors">{this.renderErrors()}</div>
-                <br/>
-                <input className="start-camp-submit" type="submit" value="SUBMIT"/>
-            </form>
         </div>
         )
     }

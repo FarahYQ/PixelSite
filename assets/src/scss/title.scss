@@ -1,0 +1,99 @@
+
+
+.photo-form {
+    display: flex;
+    justify-content: space-around;
+    .add-photo-errors {
+        color: red;
+    }
+    
+    .input-title {
+        margin-top: 20px;
+        font-size: 24px;
+    }
+    .headline {
+        font-size: 30px;
+        text-decoration: underline;
+    }
+    input[type] {
+        margin-top: 5px;
+    }
+    .attach-photo-form {
+        // display: flex;
+        // justify-content: space-around;
+        font-size: 20px;
+        font-weight: 700;
+        -webkit-font-smoothing: antialiased;
+        font-family: -apple-system, system-ui, "Segoe UI", "Roboto Oxygen-Sans", Ubuntu, Cantarell, "“Fira Sans”", "“Droid Sans”", "Helvetica Neue", Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    .attach-photo {
+        position: relative;
+        width: 340px;
+        height: 454px;
+        background: rgb(240,240,240);
+        border-radius: 16px;
+        padding: 20px;
+    }
+
+    .attach-photo {
+        width: 336px;
+        height: 448px;
+        cursor: pointer;
+        border: 2px dashed #d1d1d1;
+        border-radius: 4px;
+    }
+
+    .attach-photo input:focus {
+        outline: none;
+    }
+
+    .attach-photo-file-input::-webkit-file-upload-button {
+        visibility: hidden;
+    }
+
+    .attach-photo-file-input::before {
+        content: 'Drag and drop or click to upload';
+        font-weight: 400;
+        font-size: 16px;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        font-family: sans-serif;
+        color: #999;
+    }
+    .photo-preview {
+        width: auto;
+        height: auto;
+        width: 340px;
+        border-radius: 16px;
+        /* opacity: 0.7; */
+    }
+    
+    .photo-preview:hover {
+        background: rgb(167, 167, 167);
+        /* opacity: 0.7; */
+    }
+    .photo-preview-wrap {
+        position: relative;
+    }
+    
+    .photo-preview-wrap:hover {
+        display: inline-block;
+    }
+    
+    .photo-preview-wrap {
+        // display: none;
+        font-size: 20px;
+        color: black;
+        padding: 12px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        background: white;
+    }
+    
+}
