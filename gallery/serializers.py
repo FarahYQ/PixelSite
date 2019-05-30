@@ -9,13 +9,9 @@ from .photo_metadata_extractor import extract_geodata, get_lat_lng
 class PhotoUploadSerializer(ModelSerializer):
     class Meta:
         model = Photo
-        fields = ('caption', 'image', 'description', 'location')
+        fields = ('caption', 'image', 'description', 'location', 'lat', 'lng')
 
 class PhotoSerializer(ModelSerializer):
     class Meta:
         model = Photo
         fields = '__all__'
-
-    # def to_representation(self, instance):
-    #     data = super(PhotoSerializer, self).to_representation(instance)
-    #     return data

@@ -1,7 +1,5 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
 
-urlpatterns = [
-    path('upload', views.PhotoUploadSet.as_view({"post": "create"}), name='photo-upload'),
-    path('photos', views.PhotoViewSet.as_view({'get': 'list'}))
-]
+urlpatterns = []

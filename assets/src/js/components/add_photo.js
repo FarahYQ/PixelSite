@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPhoto } from '../actions/photo_actions'
+import { addPhoto, clearPhotoErrors } from '../actions/photo_actions'
 
 class AddPhoto extends Component {
     constructor(props) {
@@ -63,6 +63,10 @@ class AddPhoto extends Component {
         this.setState({ image: null, photoURL: null });
     }
 
+    componentWillUnmount() {
+        this.props.clearErrors();
+    }
+
     render() {
 
         const imagePreview = this.state.photoURL ? <div className='photo-preview-wrap'>
@@ -113,7 +117,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        postPhoto: photo => dispatch(addPhoto(photo))
+        postPhoto: photo => dispatch(addPhoto(photo)),
+        clearErrors: () => dispatch(clearPhotoErrors())
     }
 }
 

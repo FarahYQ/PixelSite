@@ -5,9 +5,9 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 
 export const signup = (userData) => {
-    return axios.post('/users/register', userData)
+    return axios.post('api/user/register/', userData)
 };
 
 export const login = (userData) => {
-    return axios.post('/users/login', userData)
+    return axios.post('api/user/login/', userData)
 };

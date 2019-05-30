@@ -3,6 +3,7 @@ import * as PhotoAPIUtil from '../utils/photo_utils';
 export const POST_PHOTO = 'POST_PHOTO';
 export const RECEIVE_PHOTO_ERRORS = 'RECEIVE_PHOTO_ERRORS';
 export const RECEIVE_ALL_PHOTOS = 'RECEIVE_ALL_PHOTOS';
+export const CLEAR_PHOTO_ERRORS = 'CLEAR_PHOTO_ERRORS';
 
 // actions
 export const postPhoto = payload => ({
@@ -14,6 +15,10 @@ export const receivePhotoErrors = errors => ({
     type: RECEIVE_PHOTO_ERRORS,
     errors
 });
+
+export const clearPhotoErrors = () => ({
+    type: CLEAR_PHOTO_ERRORS
+})
 
 export const receiveAllPhotos = payload => ({
     type: RECEIVE_ALL_PHOTOS,

@@ -5,7 +5,7 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 
 export const addPhoto = (formData) => {
-    return axios.post('gallery/upload', formData, {
+    return axios.post('api/gallery-view/', formData, {
         headers: {
             'content-type': 'multipart/form-data'
         }
@@ -13,5 +13,5 @@ export const addPhoto = (formData) => {
 };
 
 export const getAllPhotos = () => {
-    return axios.get('gallery/photos');
+    return axios.get('api/gallery-view/');
 };
