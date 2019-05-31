@@ -29,4 +29,15 @@ class PhotoViewSet(viewsets.ModelViewSet):
 class PhotoReadOnlySet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PhotoSerializer
     permission_classes = [permissions.AllowAny]
-    queryset = Photo.objects.all()
+
+    def get_queryset(self):
+        photos = Photo.objects.filter(user_id=self.request.user)
+        photos_dict = { photo.id : photo for photo in photos }
+        print(photos_dict)
+        return photos
+
+    def list(self, request, *args, **kwargs):
+        response = super(PhotoReadOnlySet, self).list(request, *args, **kwargs) # call the original 'list'
+        user = response.data[0]["user"]
+        response.data = { user : { photo["id"] : photo for photo in response.data }} # customize the response data
+        return response # return response with this custom representation
