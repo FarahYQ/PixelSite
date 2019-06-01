@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPhoto, clearPhotoErrors } from '../actions/photo_actions'
+import { addPhoto, clearPhotoErrors } from '../../actions/photo_actions'
 
 class AddPhoto extends Component {
     constructor(props) {
@@ -52,7 +52,6 @@ class AddPhoto extends Component {
         const fileReader = new FileReader();
         fileReader.onloadend = () => {
             this.setState({ image: file, photoURL: fileReader.result});
-            console.log(this.state)
         };
         if (file) {
             fileReader.readAsDataURL(file);
@@ -97,7 +96,7 @@ class AddPhoto extends Component {
 
                     <div className="input-title">Photo Description</div>
                     <div className="input-tagline">Describe your photo in detail. What were you doing and who were you with? What do you love about this photo? This'll help you when searching later.</div>
-                    <input type="value" onChange={this.update('description')}/>
+                    <textarea type="value" onChange={this.update('description')}></textarea>
                     <div></div>
                     <div className="add-photo-errors">{this.renderErrors()}</div>
                     <br/>

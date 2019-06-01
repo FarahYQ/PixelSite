@@ -27,7 +27,7 @@ router.register('photos', gallery_views.PhotoViewSet, base_name='photos')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/', include('rest_framework.urls')),
+    path('api/', include('rest_framework.urls')),
     path('', TemplateView.as_view(template_name='frontend/index.html')),
     path('auth/', include('knox.urls')),
     path('api/', include(router.urls)),

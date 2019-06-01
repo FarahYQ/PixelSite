@@ -29,7 +29,9 @@ export const receiveAllPhotos = payload => ({
 export const addPhoto = photo => {
     return dispatch => {
         return PhotoAPIUtil.addPhoto(photo).then(
-            payload => dispatch(postPhoto(payload)),
+            payload => (
+                dispatch(postPhoto(payload))
+                ),
             errs => dispatch(receivePhotoErrors(errs))
         );
     };

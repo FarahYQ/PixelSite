@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Profile
 from rest_framework.parsers import JSONParser
 
-# User & Profile Serializer
+# User & Profile Serializers
 class ProfileSerializer(ModelSerializer):
     image = ImageField(allow_null=True,required=False, validators=['Check image'])
     class Meta:
@@ -17,24 +17,10 @@ class ProfileSerializer(ModelSerializer):
 class UserCreateSerializer(ModelSerializer):
     profile = ProfileSerializer(required=True)
 
-    # email2 = EmailField(label="Confirm Email")
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password', 'profile')
         extra_kwargs = {"password": {"write_only": True}}
-
-    # def validate_email2(self, value):
-    #     data = self.get_initial()
-    #     email1 = data.get('email')
-    #     email2 = value
-    #     if email1 != email2: 
-    #         raise ValidationError("Emails must match")
-
-    #     user_qs = User.objects.filter(email=email2)
-    #     if user_qs.exists():
-    #         raise ValidationError("This user as already registered.")
-
-    #     return value
 
     def create(self, validated_data):
         # create user
