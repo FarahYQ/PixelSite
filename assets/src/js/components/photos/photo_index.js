@@ -1,45 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllPhotos } from '../../actions/photo_actions';
+import Masonry from 'react-masonry-component';
 
 class PhotoGallery extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        };
     };
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.getPhotos();
     };
 
     render() {
-        const photosOb = this.props.photos || {}
-        // const photos = Object.values(photosOb) || {};
-        // const numPhotos = photos.length;
-        // const q1 = Math.ceil(numPhotos/4);
-        // const q2 = (numPhotos - q1)%2 == 0 ? Math.floor((numPhotos-q1)/3) : Math.ceil((numPhotos-q1)/3)
-        // const q3 = Math.floor((numPhotos - q2)/2);
-        // const q4 = numPhotos;
-        // const col1 = photos.slice(0,q1);
-        // const col2 = photos.slice(q1,q2);
-        // const col3 = photos.slice(q2,q3);
-        // const col4 = photos.slice(q3,q4+1);
-        const first = this.props.photos[1]
-        console.log(first)
+        const masonryOptions = {
+            transitionDuration: 0
+        };
+        const imagesLoadedOptions = { background: '.my-bg-image-el' }
+        const photos = this.props.photos || [];
+        const photoElements = photos.map(photo => {
+            return (
+                <li className="photo-index-li" key ={photo.id}>
+                    <img className="photo-index-img" src={photo.image}/>
+                </li>
+            );
+        });
+
         return (
-            <div>
-                hello
-            </div>
+            <Masonry
+                className={'my-gallery-class'} // default ''
+                elementType={'ul'} // default 'div'
+                options={masonryOptions} // default {}
+                disableImagesLoaded={false} // default false
+                updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                imagesLoadedOptions={imagesLoadedOptions} // default {}
+            >
+                {photoElements}
+            </Masonry>
         );
     };
 };
 
 const mapStateToProps = ({ session, entities: {userPhotos} }) => {
+    const photos = userPhotos[7] || {};
     return {
         currentUserId: session.id,
-        photos: userPhotos
+        photos: Object.values(photos)
     }
 }
 

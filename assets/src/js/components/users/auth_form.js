@@ -28,7 +28,6 @@ class AuthForm extends Component {
 
     return (e) => {
       this.setState({ [field]: e.target.value })
-      console.log(this.state);
     };
   };
 
@@ -45,7 +44,6 @@ class AuthForm extends Component {
           }
       })
     }
-    console.log(this.state)
 }
   handleSubmit(e) {
     e.preventDefault();
