@@ -1,0 +1,33 @@
+header {
+    margin: 0;
+}
+
+.navbar-container {
+    background-color: #333;
+    font-family: Tahoma;  
+    padding: 2vh 1vw;
+}
+
+.navbar-brand {
+    // color: red;
+    background: -webkit-linear-gradient(#cf660f, #a5060e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    padding: 0 2vw 0 1vw;
+    text-decoration: None;
+    // letter-spacing: 0.1em;
+    font-size: 20px;
+}
+
+.nav-options {
+    color: white;
+    text-decoration: None;
+    padding: 0 1vw;
+    color: white;
+    text-decoration: None;
+}
+
+.right-nav {
+    float: right;
+}

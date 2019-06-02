@@ -1,11 +1,45 @@
+.masonry-gallery {
+    margin: auto;
+    padding-top: 10px;
+}
+
+.gallery-title {
+    font-family: Tahoma;
+    background-color: #D3D3D3;
+    font-weight: bold;
+    padding: 1vh 1vw;
+    color: #333;
+    text-align: center;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+    margin: 0 3vw;
+}
+
 .photo-index-li {
-    width: 300px;
+    max-width: 225px;
     margin: .8vw;
     list-style: None;
+    border-radius: 15px;
 }
 
 .photo-index-img {
     width: 100%;
     height: auto;
+    border-radius: 15px;
 }
+
+#map{
+    min-height: 500px;
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 40px;
+    border: 2px solid #333;
+}
+.map-title {
+    font-family: Tahoma;
+    text-align: center;
+    padding: 5px;
+}
+
+
 

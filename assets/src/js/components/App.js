@@ -14,14 +14,12 @@ class App extends Component {
                 <header>
                     <NavBar />
                 </header>
-                <Router>
-                    <Switch>
-                        <Route exact path='/login' component={LoginFormContainer}/>
-                        <Route exact path='/register' component={RegisterFormContainer}/>
-                        <Route exact path='/' component={PhotoGallery} />
-                        <Route exact path='/photos/add' component ={AddPhoto} />
-                    </Switch>
-                </Router>
+                <Switch>
+                    <Route exact path='/login/' component={LoginFormContainer}/>
+                    <Route exact path='/register/' component={RegisterFormContainer}/>
+                    <Route exact path='/' component={PhotoGallery} />
+                    <Route exact path='/photos/add/' component ={AddPhoto} />
+                </Switch>
             </div>
         )
     }
@@ -29,7 +27,9 @@ class App extends Component {
 
 const Root = ({store}) => (
     <Provider store={store}>
-        <App/>
+        <Router>
+            <App/>
+        </Router>
     </Provider>
 )
 

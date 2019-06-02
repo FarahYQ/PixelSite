@@ -8,11 +8,18 @@
     <title>PixelSite</title>
     <!-- Webpack rendered CSS -->
     {% render_bundle 'main' 'css' %}
-    <!-- Font Awesome CDN-->
+    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <div id="app">Out of Order.</div>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNA2N2Bn2sd0KJLwAEVCbcWpedd9bOz2Q" type="text/javascript"></script>
     <!-- Webpack rendered JS -->
     {% render_bundle 'main' 'js' %}
 </body>
