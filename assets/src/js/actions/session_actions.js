@@ -24,7 +24,7 @@ export const signup = (user) => dispatch => {
     SessionUtil.signup(user).then(res => {
         const { token } = res.data;
         localStorage.setItem("jwtToken", token);
-        const decoded = jwt_decoded(token);
+        const decoded = jwt_decode(token);
     }).catch(err => dispatch(receiveErrors(err.response.data)))
 };
 
@@ -32,6 +32,6 @@ export const login = (user) => dispatch => {
     SessionUtil.login(user).then(res => {
         const { token } = res.data;
         localStorage.setItem("jwtToken", token);
-        const decoded = jwt_decoded(token);
+        const decoded = jwt_decode(token);
     }).catch(err => dispatch(receiveErrors(err.response.data)))
 };

@@ -14,6 +14,8 @@ class UserCreate(generics.GenericAPIView):
         serializer = UserCreateSerializer(data = request.data)
         if serializer.is_valid():
             user = serializer.create(validated_data=request.data)
+            # userLogin = authenticate(username=request.data['username'], password=request.data['password'])
+            login(request, user)
             return Response({
                 "user": UserSerializer(user, context=self.get_serializer_context()).data,
                 "token": AuthToken.objects.create(user)[1]
