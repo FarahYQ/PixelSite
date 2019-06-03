@@ -36,7 +36,7 @@ class AddPhoto extends Component {
             <div>
                 <ul>
                 {Object.keys(errors).map((key, index) => {
-                    return <li key={index}>{`${key}: ${errors[key]}`}</li>
+                    return <li className="photoform-errors" key={index}>{`${key}: ${errors[key]}`}</li>
                 })}
                 </ul>
             </div>
@@ -75,14 +75,14 @@ class AddPhoto extends Component {
 
         return (
         <div className="container">
-            <div className="photo-form">
-                <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <div className="headline">Add Another Photo</div>
+            <div className="add-photo-title">Add Another Photo</div>
+            <div>
+                <form className="photo-form" onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="input-title">Photo Caption</div>
                     <input type="value" onChange={this.update('caption')}/>
 
                     <div className="input-title">Attach Photo</div>
-                    <div className="input-tagline">Make sure it's in jpg format - that's the only acceptable format so far.</div>
+                    <div className="input-tagline">(jpeg or jpg)</div>
                     <div className="attach-photo-form">
                         <div className="attach-photo">
                             {imagePreview ? imagePreview : <input type="file" className="attach-photo-file-input" onChange={this.handleFile}/>}
@@ -100,7 +100,7 @@ class AddPhoto extends Component {
                     <div></div>
                     <div className="add-photo-errors">{this.renderErrors()}</div>
                     <br/>
-                    <input type="submit" value="SUBMIT"/>
+                    <input className="photoform-submit-btn" type="submit" value="SUBMIT"/>
                 </form>
             </div>
         </div>

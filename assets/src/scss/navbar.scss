@@ -1,11 +1,15 @@
 header {
-    margin: 0;
+    margin-bottom: 4vh;
 }
 
 .navbar-container {
     background-color: #333;
     font-family: Tahoma;  
     padding: 2vh 1vw;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 .navbar-brand {
@@ -30,4 +34,5 @@ header {
 
 .right-nav {
     float: right;
+    padding: 0 1vw;
 }
