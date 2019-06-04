@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import * as sessionAPIUtils from '../../utils/session_util';
-import { withRouter } from 'react-router-dom';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -49,13 +47,14 @@ class AuthForm extends Component {
     }
 }
   handleSubmit(e) {
+    e.preventDefault();
     let user;
     if (this.props.formType === 'LOG IN') {
       user = {username: this.state.username, password: this.state.password}
     } else {
       user = Object.assign({}, this.state);
     }
-    this.props.processForm(user);
+    this.props.processForm(user)
   }
 
   demoSubmit(e) {
@@ -64,7 +63,7 @@ class AuthForm extends Component {
       email: "jungle@gmail.com",
       password: "jungle"
     });
-    // this.props.loginDemo(eliza).then(this.props.closeModal);
+    // this.props.loginDemo(eliza).then(this.props.history.push('/'));
   }
 
   renderErrors() {

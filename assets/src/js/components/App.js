@@ -7,6 +7,8 @@ import LoginFormContainer from './users/login_form_container';
 import AddPhoto from './photos/add_photo';
 import NavBar from './nav/navbar';
 import PhotoGallery from './photos/photo_index';
+import Footer from './footer/footer';
+import PhotoPage from './photos/photo';
 
 class App extends Component {
     render() {
@@ -20,11 +22,12 @@ class App extends Component {
                     <UnauthRoute exact path='/register/' component={RegisterFormContainer}/>
                     <AuthRoute exact path='/' component={PhotoGallery} />
                     <Route exact path='/photos/add/' component ={AddPhoto} />
+                    <Route exact path='/photos/:photoId' component={PhotoPage} />
                 </Switch>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 const Root = ({store}) => (
     <Provider store={store}>

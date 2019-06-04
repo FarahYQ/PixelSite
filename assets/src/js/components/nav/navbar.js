@@ -30,7 +30,7 @@ class NavBar extends Component {
                 </div>
             )
         } else {
-            leftNav = (<div></div>)
+            leftNav = (<span></span>)
             rightNav = (
                 <div className="right-nav">
                     <Link className="nav-options" to="/register/">Signup</Link>
