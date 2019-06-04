@@ -49,7 +49,7 @@ class PhotoGallery extends Component {
 };
 
 const mapStateToProps = ({ session, entities: {userPhotos} }) => {
-    const photos = userPhotos[7] || {};
+    const photos = userPhotos[session.id] || {};
     return {
         currentUserId: session.id,
         photos: Object.values(photos)

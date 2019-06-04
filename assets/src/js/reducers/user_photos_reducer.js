@@ -18,7 +18,7 @@ const userPhotosReducer = (state = {}, action) => {
             }
             const combinedData = Object.assign(state[user], subData);
             newState[user] = combinedData;
-            return newState;
+            return state;
         default:
             return state;
     }

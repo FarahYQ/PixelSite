@@ -2,7 +2,7 @@ import * as SessionUtil from '../utils/session_util';
 import jwt_decode from "jwt-decode";
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER ";
-export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
+export const LOGOUT_CURRENT_USER = "RECEIVE_USER_LOGOUT";
 export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
@@ -16,22 +16,51 @@ export const clearErrors = () => ({
     type: CLEAR_SESSION_ERRORS
 })
 
-export const logoutUser = () => ({
-    type: RECEIVE_USER_LOGOUT
+export const receiveCurrentUser = user => ({
+    type: RECEIVE_CURRENT_USER,
+    user
 })
 
-export const signup = (user) => dispatch => {
-    SessionUtil.signup(user).then(res => {
-        const { token } = res.data;
-        localStorage.setItem("jwtToken", token);
-        const decoded = jwt_decode(token);
-    }).catch(err => dispatch(receiveErrors(err.response.data)))
+export const logoutUser = () => ({
+    type: LOGOUT_CURRENT_USER
+})
+
+// thunk functions
+
+export const signup = (user) => {
+    return dispatch => {
+        return SessionUtil.signup(user).then(
+            res => {
+                const { token, user } = res.data;
+                localStorage.setItem("jwtToken", token);
+                localStorage.setItem("currrentUser", JSON.stringify(user))
+                SessionUtil.setAuthToken(token);
+                return dispatch(receiveCurrentUser(user));
+            }).catch(
+                err => dispatch(receiveErrors(err.response.data))
+            )
+    };
 };
 
 export const login = (user) => dispatch => {
     SessionUtil.login(user).then(res => {
-        const { token } = res.data;
-        localStorage.setItem("jwtToken", token);
-        const decoded = jwt_decode(token);
+        console.log("and then")
+        console.log(res)
+        const { token, user } = res.data;
+        console.log(token, user)
+        if (token) {
+            localStorage.setItem("jwtToken", token);
+            localStorage.setItem("currentUser", JSON.stringify(user))
+            SessionUtil.setAuthToken(token);
+        }
+        return dispatch(receiveCurrentUser(user));
     }).catch(err => dispatch(receiveErrors(err.response.data)))
 };
+
+export const logout = () => dispatch => {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("currentUser")
+    SessionUtil.logout();
+    SessionUtil.setAuthToken(false);
+    dispatch(logoutUser());
+}

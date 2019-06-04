@@ -6,10 +6,12 @@ import rootReducer from './reducers/root_reducer';
 
 let initialState = {};
 
-const store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(thunk, logger)
-  )
+  const configureStore = (preloadedState = {}) => (
+    createStore(
+      rootReducer,
+      preloadedState,
+      applyMiddleware(thunk, logger)
+    )
+  );
 
-export default store;
+export default configureStore;

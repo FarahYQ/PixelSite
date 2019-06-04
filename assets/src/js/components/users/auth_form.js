@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as sessionAPIUtils from '../../utils/session_util';
-import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -18,18 +18,21 @@ class AuthForm extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.demoSubmit = this.demoSubmit.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-  componentWillUnmount() {
-    // this.props.clearErrors();
-  }
 
   update(field) {
-
     return (e) => {
       this.setState({ [field]: e.target.value })
     };
   };
+
+  handleRedirect(loc) {
+    return (e) => {
+      this.props.history.push(loc);
+    }
+  }
 
   imageSelectedHandler(e) {
     e.preventDefault();
@@ -46,9 +49,13 @@ class AuthForm extends Component {
     }
 }
   handleSubmit(e) {
-    e.preventDefault();
-    const user = Object.assign({}, this.state);
-    sessionAPIUtils.signup(user);
+    let user;
+    if (this.props.formType === 'LOG IN') {
+      user = {username: this.state.username, password: this.state.password}
+    } else {
+      user = Object.assign({}, this.state);
+    }
+    this.props.processForm(user);
   }
 
   demoSubmit(e) {
@@ -61,30 +68,30 @@ class AuthForm extends Component {
   }
 
   renderErrors() {
-    // return(
-    //   <ul>
-    //     {this.props.errors.map((error, i) => (
-    //       <li key={`error-${i}`}>
-    //         {error}
-    //       </li>
-    //     ))}
-    //   </ul>
-    // );
+    const errors = this.props.errors;
+    return (
+      <div>
+        <ul>
+          {Object.keys(errors).map((key, index) => {
+              return <li className="session-error-items" key={index}>{`${key}: ${errors[key]}`}</li>
+          })}
+        </ul>
+      </div>
+    )
+  }
+  
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
 
   render() {
     let mod1;
     let mod2;
-    let div_class;
-    // if (this.props.formType === 'SIGN UP') {
-    if (true) {
+    let otherForm;
+    let otherFormText;
+    if (this.props.formType === 'SIGN UP') {
       mod1 = (
-    <div><input type="username"
-      placeholder="Username"
-      value={this.state.username}
-      onChange={this.update('username')}
-      className="login-input"/>
-      <br/>
+    <div>
     <input type="first_name"
         placeholder="First Name"
         value={this.state.first_name}
@@ -97,12 +104,17 @@ class AuthForm extends Component {
         onChange={this.update('last_name')}
         className="login-input"/>
       <br/>
+      <input type="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.update('email').bind(this)}
+            className="login-input"/>
+        <br/>
       </div>
       );
       mod2 = (
       <div>
-      <select type="last_name"
-        placeholder="Last Name"
+      <select type="privacy"
         value={this.state.privacy}
         onChange={this.update('privacy')}
         className="login-input">
@@ -110,6 +122,7 @@ class AuthForm extends Component {
           <option name="private">Private</option>
       </select>
       <br/>
+      <div className="profile-image-input-title">Profile Image (optional, jpeg or jpg only)</div>
       <input type="file"
         value={this.state.image}
         onChange={(e) => this.imageSelectedHandler(e)}
@@ -117,7 +130,8 @@ class AuthForm extends Component {
       <br/>
       </div>
       )
-      div_class = 'signup'
+      otherForm = '/login';
+      otherFormText = 'LOG IN'
     } else {
       mod1 = (
       <br/>
@@ -125,27 +139,26 @@ class AuthForm extends Component {
       mod2 = (
         <br/>
       );
-      div_class = 'login'
+      otherForm = '/register';
+      otherFormText = 'SIGN UP'
     }
 
     return (
-      <div className={div_class}>
-
+      <div className="session-form">
         <form onSubmit={(e) => this.handleSubmit(e)} className="session-form-box">
-
-          <button className="fb-btn" onClick={(e) => this.demoSubmit(e)}>DEMO LOGIN</button>
+          <div className="welcome-title">Welcome to PixelSite!</div>
+          <button className="demo-btn" onClick={(e) => this.demoSubmit(e)}>DEMO LOGIN</button>
           <div className="session-t1">   </div>
           <br/>
-          {/* <div className="session-t2">--- Or {this.props.formType.toLowerCase()} with email ---</div> */}
+          <div className="session-t2"> -- or {this.props.formType.toLowerCase()} with email --</div>
           <br/>
-          <div className="errors">{this.renderErrors()}</div>
+          <input type="username"
+          placeholder="Username"
+          value={this.state.username}
+          onChange={this.update('username')}
+          className="login-input"/>
+        <br/>
         {mod1}
-        <input type="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.update('email').bind(this)}
-            className="login-input"/>
-          <br/>
         <input type="password"
             placeholder="Password"
             value={this.state.password}
@@ -153,15 +166,17 @@ class AuthForm extends Component {
             className="login-input"/>
           <br/>
         {mod2}
+          <div className="session-errors">{this.renderErrors()}</div>
           <input
             className="session-submit"
             type="submit"
-            // value={this.props.formType}
+            value={this.props.formType}
             />
           <br/>
           <div className="session-redirect">
-            {/* <div>{this.props.navText}</div> */}
-            {/* <div className="session-redirect-btn">{this.props.otherForm}</div> */}
+            <br/>
+            <div>{this.props.navText}</div>
+            <button className="session-redirect-btn" onClick={this.handleRedirect(otherForm)}>{otherFormText}</button>
           </div>
         </form>
       </div>

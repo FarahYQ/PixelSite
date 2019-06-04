@@ -15,14 +15,18 @@ class ProfileSerializer(ModelSerializer):
         fields = ('privacy', 'image')
 
 class UserCreateSerializer(ModelSerializer):
-    profile = ProfileSerializer(required=True)
-
+    profile = ProfileSerializer(required=False)
+    first_name = CharField()
+    last_name = CharField()
+    email = EmailField()
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password', 'profile')
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
+        print("in the serializer create method")
+        print(validated_data)
         # create user
         user = User(
             username = validated_data['username'],
@@ -34,17 +38,19 @@ class UserCreateSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         # create profile
+        print("now create the profile")
         profile_data = validated_data.get('profile', {'privacy': 'public'})
         profile = Profile.objects.create(
             user_id = user.id,
             privacy = profile_data['privacy']
         )
-
+        print("user created")
+        print(user)
         return user
 
 class UserLoginSerializer(Serializer):
-    username = CharField(required=False, allow_blank=True)
-    email = EmailField(required=False, allow_blank=True)
+    # username = CharField(required=False, allow_blank=True)
+    username = CharField()
     password = CharField()
     class Meta:
         model = User

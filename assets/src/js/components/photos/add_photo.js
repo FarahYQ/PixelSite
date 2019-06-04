@@ -118,7 +118,7 @@ const mapDispatchToProps = dispatch => {
     return {
         postPhoto: photo => dispatch(addPhoto(photo)),
         clearErrors: () => dispatch(clearPhotoErrors())
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto);

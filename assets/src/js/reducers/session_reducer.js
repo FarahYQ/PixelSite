@@ -1,16 +1,19 @@
 import { RECEIVE_CURRENT_USER,
     LOGOUT_CURRENT_USER } from '../actions/session_actions';
-
+import merge from 'lodash/merge';
 // State for no current logged in user. This is the default.
 const _nullUser = Object.freeze({
-    id: null
+    id: null,
+    isAuthenticated: false,
 });
 
 
 const sessionReducer = (state = _nullUser, action) => {
 switch(action.type) {
     case RECEIVE_CURRENT_USER:
-        return { id: action.payload.user.id };
+        console.log("in session reducer")
+        console.log(action.user)
+        return Object.freeze({ id: action.user["id"], isAuthenticated: true });
     case LOGOUT_CURRENT_USER:
         return _nullUser;
     default:

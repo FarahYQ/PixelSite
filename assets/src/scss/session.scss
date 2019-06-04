@@ -1,0 +1,64 @@
+.session-form {
+    font-family: Tahoma;
+    margin: 10vh 10vw 10vh 10vw;
+    padding: 5vh 0;
+    border: 2px solid #D3D3D3;
+    border-radius: 15px;
+    background-color: rgb(29, 34, 37);
+    text-align: center;
+    color: white;
+    .session-errors {
+        color: red;
+    }
+    .welcome-title {
+        font-size: 30px;
+        margin-bottom: 2vh;
+    }
+    .session-error-items {
+        list-style: None;
+    }
+
+    .login-input{
+        margin: 1vh 0;
+        height: 3vh;
+        width: 25vw;
+    }
+
+    .demo-btn {
+        width: 20vw;
+        height: 5vh;
+        border-radius: 5px;
+        background: -webkit-linear-gradient(#367c36, #0c3524);
+        color: white;
+        font-weight: bold;
+    }
+    .profile-image-input-title {
+        font-size: smaller;
+        padding-top: 1vh;
+    }
+
+    .session-submit {
+        width: 17vw;
+        height: 5vh;
+        border-radius: 5px;
+        margin: 2vh 0;
+        background: -webkit-linear-gradient(#cf660f, #a5060e);
+        color: white;
+        font-weight: bold;
+    }
+    .session-redirect-btn {
+        width: 14vw;
+        height: 4vh;
+        border-radius: 5px;
+        margin: 2vh 0;
+        background: -webkit-linear-gradient(#cf660f, #a5060e);
+        color: white;
+        font-weight: bold;
+        text-decoration: None;
+    }
+    .session-redirect-link {
+        color: white;
+        font-weight: bold;
+        text-decoration: None;
+    }
+}

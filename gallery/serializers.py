@@ -17,4 +17,6 @@ class PhotoSerializer(ModelSerializer):
     class Meta:
         model = Photo
         fields = '__all__'
+
+
         

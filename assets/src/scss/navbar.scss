@@ -13,7 +13,6 @@ header {
 }
 
 .navbar-brand {
-    // color: red;
     background: -webkit-linear-gradient(#cf660f, #a5060e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -29,7 +28,26 @@ header {
     text-decoration: None;
     padding: 0 1vw;
     color: white;
+}
+.nav-username {
+    color: #367c36;
+    font-weight: bold;
+    border: 1px solid #367c36;
+}
+
+.nav-options-btn {
+    color: white;
+    font-family: Tahoma;
+    font-size: 16px;
     text-decoration: None;
+    padding: 0 1vw;
+    color: white;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 .right-nav {
