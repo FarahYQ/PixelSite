@@ -18,5 +18,8 @@ heroku buildpacks:set -i 1 https://github.com/cyberdelia/heroku-geo-buildpack.gi
 heroku buildpacks:set -i 1 https://github.com/TrailStash/heroku-geo-buildpack.git
 
 heroku buildpacks:set --index 1 https://github.com/heroku/heroku-buildpack-apt
+
+
+heroku buildpacks:set --index 1 git://github.com/dulaccc/heroku-buildpack-geodjango.git#1.1
 heroku buildpacks:set -i 2 heroku/nodejs
 heroku buildpacks:set -i 3 heroku/python
