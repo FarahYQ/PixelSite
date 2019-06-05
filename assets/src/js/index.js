@@ -4,7 +4,6 @@ import Root from './components/App';
 import configureStore from './store';
 import '../scss/index.scss';
 import { setAuthToken } from './utils/session_util';
-import { logout } from './actions/session_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
     let store;
