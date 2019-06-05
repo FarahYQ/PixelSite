@@ -16,5 +16,7 @@ curl -vk -X POST -H "Content-Type: application/json" -H 'Authorization: Token <A
 heroku buildpacks:set -i 1 https://github.com/cyberdelia/heroku-geo-buildpack.git
 
 heroku buildpacks:set -i 1 https://github.com/TrailStash/heroku-geo-buildpack.git
+
+heroku buildpacks:set --index 1 https://github.com/heroku/heroku-buildpack-apt
 heroku buildpacks:set -i 2 heroku/nodejs
 heroku buildpacks:set -i 3 heroku/python
