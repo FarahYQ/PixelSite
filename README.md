@@ -14,5 +14,7 @@ Create a period:
 curl -vk -X POST -H "Content-Type: application/json" -H 'Authorization: Token <AUTH_TOKEN>' --data '{"timestamp": "THH:MM:SS"}' "https://eggtimer.herokuapp.com/api/v2/periods/"
 
 heroku buildpacks:set -i 1 https://github.com/cyberdelia/heroku-geo-buildpack.git
+
+heroku buildpacks:set -i 1 https://github.com/TrailStash/heroku-geo-buildpack.git
 heroku buildpacks:set -i 2 heroku/nodejs
 heroku buildpacks:set -i 3 heroku/python
