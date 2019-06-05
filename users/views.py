@@ -14,15 +14,10 @@ class UserCreate(generics.GenericAPIView):
     serializer_class = UserCreateSerializer
     permission_classes = [permissions.AllowAny]
     def post(self, request, format='json'):
-        print("need to call the serializer")
         serializer = UserCreateSerializer(data = request.data)
-        print("test the serializer validity")
-        print(serializer.is_valid())
         if serializer.is_valid():
             user = serializer.create(validated_data=request.data)
-            print("now authenticate the user")
             userLogin = authenticate(username=request.data['username'], password=request.data['password'])
-            print("user authenticated")
             login(request, user)
             return Response({
                 "user": UserSerializer(user, context=self.get_serializer_context()).data,
@@ -36,19 +31,12 @@ class UserLogin(generics.GenericAPIView):
     serializer_class = UserLoginSerializer
 
     def post(self, request, *args, **kwargs):
-        print("starting login")
-        print(request.data)
         serializer = UserLoginSerializer(data = request.data)
-        print("posting login")
-        print(serializer.is_valid())
-        print(serializer.errors)
         # serializer.is_valid(raise_exception=True)
         if serializer.is_valid():
             user = serializer.validate(request.data)
             # user_data = serializer.validated_data
-            print(user)
             user = authenticate(username=request.data['username'], password=request.data['password'])
-            print(user)
             login(request, user)
             return Response({
                 "user": UserSerializer(user, context=self.get_serializer_context()).data,

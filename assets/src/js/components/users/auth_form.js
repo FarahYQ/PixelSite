@@ -46,8 +46,8 @@ class AuthForm extends Component {
       })
     }
 }
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit() {
+    // e.preventDefault();
     let user;
     if (this.props.formType === 'LOG IN') {
       user = {username: this.state.username, password: this.state.password}
@@ -59,11 +59,8 @@ class AuthForm extends Component {
 
   demoSubmit(e) {
     e.preventDefault();
-    const eliza = Object.assign({}, { first_name: "Eliza", last_name: "Thornberry",
-      email: "jungle@gmail.com",
-      password: "jungle"
-    });
-    // this.props.loginDemo(eliza).then(this.props.history.push('/'));
+    const fizzy = {username: "FizzyQ", password: "demopassword"}
+    this.props.loginDemo(fizzy);
   }
 
   renderErrors() {
