@@ -1,5 +1,4 @@
 import * as SessionUtil from '../utils/session_util';
-import jwt_decode from "jwt-decode";
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER ";
 export const LOGOUT_CURRENT_USER = "RECEIVE_USER_LOGOUT";
