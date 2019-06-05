@@ -44,10 +44,7 @@ export const signup = (user) => {
 
 export const login = (user) => dispatch => {
     SessionUtil.login(user).then(res => {
-        console.log("and then")
-        console.log(res)
         const { token, user } = res.data;
-        console.log(token, user)
         if (token) {
             localStorage.setItem("jwtToken", token);
             localStorage.setItem("currentUser", JSON.stringify(user))

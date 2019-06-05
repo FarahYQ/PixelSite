@@ -17,7 +17,5 @@ export const getAllPhotos = () => {
 };
 
 export const getSelectedPhotos = (boundaries) => {
-    console.log("in the util")
-    console.log({params: boundaries})
     return axios.get('api/selected-photos/', {params: boundaries});
 }

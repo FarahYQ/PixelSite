@@ -25,6 +25,6 @@ class FilteredPhotoSerializer(ModelSerializer):
     class Meta: 
         model = Photo
         fields = ('id',)
-   
+
 
 

@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { getAllPhotos, getSelectedPhotos } from '../../actions/photo_actions';
-
+const mapCenter = { lat: 37.7758, lng: -122.435 };
 class Map extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            center: { lat: 0, lng: 0 }
+        }
         this.addMarker = this.addMarker.bind(this);
     }
 
@@ -17,7 +20,7 @@ class Map extends Component {
         const map = ReactDOM.findDOMNode(this.refs.map);
 
         const options = {
-            center: new google.maps.LatLng(0, 0),
+            center: this.state.center,
             zoom: 2,
             minZoom: 2
         };
@@ -43,7 +46,7 @@ class Map extends Component {
         let pos;
         if (spot && spot.lat && spot.lng) {
             pos = new google.maps.LatLng(spot.lat, spot.lng);
-        } else if (spot && spot.geo_location !== [0,0]) {
+        } else if (spot && spot.geo_location[0] !== 0 && spot.geo_location[1] !== 0) {
             let lat = spot.geo_location[1];
             let lng = spot.geo_location[0];
             pos = new google.maps.LatLng(lat, lng);
@@ -69,18 +72,13 @@ class Map extends Component {
             boundaries['upperLat'] = bounds.getNorthEast().lat();
             boundaries['leftLng'] = bounds.getSouthWest().lng();
             boundaries['rightLng'] = bounds.getNorthEast().lng();
-            console.log("boundaries are")
-            console.log(typeof boundaries['lowerLat'])
+            // if (boundaries['rightLng'] < boundaries['leftLng']) {
+            //     boundaries['rightLng'] = 169.98046875;
+            // }
+            // if (boundaries['leftLng'] > boundaries['rightLng']) {
+            //     boundaries['leftLng'] = -169.98046875;
+            // }
             this.props.getInBoundaryPhotos(boundaries)
-        // console.log('center',
-        //     bounds.getCenter().lat(), 
-        //     bounds.getCenter().lng());
-        // console.log("north east",
-        //     bounds.getNorthEast().lat(), 
-        //     bounds.getNorthEast().lng());
-        // console.log("south west",
-        //     bounds.getSouthWest().lat(), 
-        //     bounds.getSouthWest().lng());
         });
     }
 
@@ -89,6 +87,7 @@ class Map extends Component {
             <div>
                 <div className="map-title">PHOTO MAP</div>
                 <div id='map' ref='map'/>
+                <div className="map-instructions">Pan, zoom in, or zoom out to select region!</div>
             </div>
         );
     }

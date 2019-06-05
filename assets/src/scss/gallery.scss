@@ -22,27 +22,6 @@
     border-radius: 15px;
 }
 
-// .photo-index-li:hover {
-//     box-shadow: 5px 10px #888888;
-// }
-
-// .photo-index-li:hover{
-//     -webkit-border-radius: 10px;
-//     -moz-border-radius: 10px;
-//     border-radius: 10px;
-//     -webkit-box-shadow: 0px 0px 30px 0px #888888;
-//     -moz-box-shadow: 0px 0px 30px 0px #888888;
-//     box-shadow: 0px 0px 30px 0px #888888;
-// }
-// .photo-index-li:last-of-type:hover{
-//     -webkit-border-radius: 10px;
-//     -moz-border-radius: 10px;
-//     border-radius: 10px;
-//     -webkit-box-shadow: 0px 0px 30px 0px rgba(232, 0, 0, 0.67);
-//     -moz-box-shadow: 0px 0px 30px 0px rgba(232, 0, 0, 0.67);
-//     box-shadow: 0px 0px 30px 0px rgba(232, 0, 0, 0.67);
-// }
-
 .photo-index-img {
     width: 100%;
     height: auto;
@@ -53,13 +32,20 @@
     min-height: 500px;
     max-width: 1000px;
     margin: auto;
-    margin-bottom: 40px;
     border: 2px solid #333;
 }
 .map-title {
     font-family: Tahoma;
     text-align: center;
     padding: 5px;
+}
+
+.map-instructions {
+    font-family: Tahoma;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+    margin-bottom: 40px;
 }
 
 

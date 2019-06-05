@@ -11,8 +11,6 @@ const _nullUser = Object.freeze({
 const sessionReducer = (state = _nullUser, action) => {
 switch(action.type) {
     case RECEIVE_CURRENT_USER:
-        console.log("in session reducer")
-        console.log(action.user)
         return Object.freeze({ id: action.user["id"], isAuthenticated: true });
     case LOGOUT_CURRENT_USER:
         return _nullUser;

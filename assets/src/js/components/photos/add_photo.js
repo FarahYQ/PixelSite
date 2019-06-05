@@ -30,8 +30,10 @@ class AddPhoto extends Component {
         formData.append('description', this.state.description)
         this.props.postPhoto(formData)
             .then(res => { this.props.history.push('/')})
-            .catch(errors => { this.props.getErrors(errors)});
-        }
+            .catch(errors => { 
+                this.props.getErrors(errors)
+            });
+    }
 
     renderErrors() {
         const errors = this.props.errors;
