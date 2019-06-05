@@ -29,7 +29,7 @@ DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = [pixelsite.herokuapp.com/]
+ALLOWED_HOSTS = [pixelsite.herokuapp.com]
 
 
 # Application definition
@@ -136,10 +136,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, ’staticfiles’)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, ’staticfiles’)
 
 # cors whitelist
 CORS_ORIGIN_WHITELIST = 'http://127.0.0.1:8000',
