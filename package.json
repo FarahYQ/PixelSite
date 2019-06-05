@@ -37,8 +37,10 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "start": "./node_modules/.bin/webpack --mode development --config webpack.config.js",
-    "build": "npm run start -- --watch"
+    "start": "",
+    "heroku-postbuild": "webpack -p",
+    "startDev": "./node_modules/.bin/webpack --mode development --config webpack.config.js",
+    "build": "npm run startDev -- --watch"
   },
   "repository": {
     "type": "git",
