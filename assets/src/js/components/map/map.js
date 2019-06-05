@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { getAllPhotos } from '../../actions/photo_actions';
-
-const mapCenter = { lat: 37.7758, lng: -122.435 };
+import { getAllPhotos, getSelectedPhotos } from '../../actions/photo_actions';
 
 class Map extends Component {
     constructor(props) {
@@ -31,25 +29,49 @@ class Map extends Component {
     }
 
     componentWillReceiveProps() {
-        this.props.photos.forEach(this.addMarker);
+        if (this.props.filter === undefined || this.props.filter.length === 0) {
+            Object.values(this.props.photos).forEach(this.addMarker);
+        } else {
+            this.props.filter.forEach(filterData => {
+                const photoId = filterData["id"];
+                this.addMarker(this.props.photos[photoId])
+            })
+        }
     }
 
     addMarker(spot) {
-        const pos = new google.maps.LatLng(spot.lat, spot.lng);
+        let pos;
+        if (spot && spot.lat && spot.lng) {
+            pos = new google.maps.LatLng(spot.lat, spot.lng);
+        } else if (spot && spot.geo_location !== [0,0]) {
+            let lat = spot.geo_location[1];
+            let lng = spot.geo_location[0];
+            pos = new google.maps.LatLng(lat, lng);
+        } else {
+            return;
+        }
         const marker = new google.maps.Marker({
             position: pos,
             map: this.map
         });
 
         // when the marker is clicked on, alert the name
-        marker.addListener('click', () => {
-            alert(`clicked on: ${spot.caption}`);
-        });
+        // marker.addListener('click', () => {
+        //     alert(`clicked on: ${spot.caption}`);
+        // });
     }
 
     listenForMove() {
         google.maps.event.addListener(this.map, 'idle', () => {
-            const bounds = this.map.getBounds();    
+            const bounds = this.map.getBounds();
+            let boundaries = {};
+            boundaries['lowerLat'] = bounds.getSouthWest().lat();
+            boundaries['upperLat'] = bounds.getNorthEast().lat();
+            boundaries['leftLng'] = bounds.getSouthWest().lng();
+            boundaries['rightLng'] = bounds.getNorthEast().lng();
+            console.log("boundaries are")
+            console.log(typeof boundaries['lowerLat'])
+            this.props.getInBoundaryPhotos(boundaries)
         // console.log('center',
         //     bounds.getCenter().lat(), 
         //     bounds.getCenter().lng());
@@ -72,17 +94,19 @@ class Map extends Component {
     }
 }
 
-const mapStateToProps = ({ session, entities: {userPhotos} }) => {
-    const photos = userPhotos[7] || {};
+const mapStateToProps = ({ session, entities: {userPhotos, filteredPhotos} }) => {
+    const photos = userPhotos[session.id] || {};
     return {
         currentUserId: session.id,
-        photos: Object.values(photos)
+        photos: photos,
+        filter: filteredPhotos
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getPhotos: () => dispatch(getAllPhotos())
+        getPhotos: () => dispatch(getAllPhotos()),
+        getInBoundaryPhotos: (boundaries) => dispatch(getSelectedPhotos(boundaries))
     }
 }
 

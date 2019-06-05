@@ -6,17 +6,10 @@ const userPhotosReducer = (state = {}, action) => {
         case RECEIVE_ALL_PHOTOS:
             return merge({}, state, action.payload.data);
         case POST_PHOTO:
-            const user = 7;
-            const data = action.payload.data
-            data["user"] = user; 
             const subData = {};
-            subData[data.id] = data;
-            const newState = {};
-            if (state[user] === undefined) {
-                newState[user] = subData;
-                return newState;
-            }
+            subData[action.payload.data["id"]] = action.payload.data;
             const combinedData = Object.assign(state[user], subData);
+            const newState = {};
             newState[user] = combinedData;
             return state;
         default:

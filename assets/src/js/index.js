@@ -9,9 +9,6 @@ import { logout } from './actions/session_actions';
 document.addEventListener("DOMContentLoaded", () => {
     let store;
     if (localStorage.jwtToken && localStorage.currentUser) {
-        console.log("loading dom")
-        console.log(localStorage.jwtToken)
-        console.log(localStorage.currentUser)
         setAuthToken(localStorage.jwtToken);
         const userData = JSON.parse(localStorage.currentUser)
         const currentUser = {};

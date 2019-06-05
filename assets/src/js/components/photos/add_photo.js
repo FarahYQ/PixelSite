@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPhoto, clearPhotoErrors } from '../../actions/photo_actions'
+import { withRouter } from 'react-router-dom';
+import { addPhoto,receivePhotoErrors, clearPhotoErrors } from '../../actions/photo_actions'
 
 class AddPhoto extends Component {
     constructor(props) {
@@ -27,7 +28,9 @@ class AddPhoto extends Component {
         formData.append('caption', this.state.caption)
         formData.append('location', this.state.location)
         formData.append('description', this.state.description)
-        this.props.postPhoto(formData);
+        this.props.postPhoto(formData)
+            .then(res => { this.props.history.push('/')})
+            .catch(errors => { this.props.getErrors(errors)});
         }
 
     renderErrors() {
@@ -117,8 +120,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         postPhoto: photo => dispatch(addPhoto(photo)),
+        getErrors: errors => dispatch(receivePhotoErrors(errors)),
         clearErrors: () => dispatch(clearPhotoErrors())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddPhoto));

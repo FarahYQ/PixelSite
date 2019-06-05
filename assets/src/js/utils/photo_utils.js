@@ -15,3 +15,9 @@ export const addPhoto = (formData) => {
 export const getAllPhotos = () => {
     return axios.get('api/gallery-view/');
 };
+
+export const getSelectedPhotos = (boundaries) => {
+    console.log("in the util")
+    console.log({params: boundaries})
+    return axios.get('api/selected-photos/', {params: boundaries});
+}

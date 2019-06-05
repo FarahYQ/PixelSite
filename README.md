@@ -1,7 +1,7 @@
 # PixelSite
 curl -vk -X GET -H "Content-Type: application/json" "http://localhost:8000/gallery/api/v1/photos/"
 
-curl -vk -X DELETE -H "Content-Type: application/json" "http://localhost:8000/gallery/api/v1/photos/14/"
+curl -vk -X DELETE -H "Content-Type: application/json" "http://localhost:8000/gallery/api/v1/upload/14/"
 
 curl -vk -X GET -H "Content-Type: application/json" -H 'Authorization: Token <AUTH_TOKEN>' "https://eggtimer.herokuapp.com/api/v2/periods/" | python -m json.tool
 

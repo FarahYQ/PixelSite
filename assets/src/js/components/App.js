@@ -21,8 +21,8 @@ class App extends Component {
                     <UnauthRoute exact path='/login/' component={LoginFormContainer}/>
                     <UnauthRoute exact path='/register/' component={RegisterFormContainer}/>
                     <AuthRoute exact path='/' component={PhotoGallery} />
-                    <Route exact path='/photos/add/' component ={AddPhoto} />
-                    <Route exact path='/photos/:photoId' component={PhotoPage} />
+                    <AuthRoute exact path='/photos/add/' component ={AddPhoto} />
+                    <AuthRoute exact path='/photos/:photoId' component={PhotoPage} />
                 </Switch>
             </div>
         );

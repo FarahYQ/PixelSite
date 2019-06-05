@@ -1,14 +1,9 @@
-# from django.shortcuts import render
 from knox.models import AuthToken
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
-# from django.contrib.auth.models import User
 from rest_framework import viewsets, permissions
-from .serializers import PhotoUploadSerializer, PhotoSerializer
+from .serializers import PhotoUploadSerializer, PhotoSerializer, FilteredPhotoSerializer
 from .photo_metadata_extractor import extract_geodata, get_lat_lng
+from django.contrib.gis.geos import Point, Polygon
 from .models import Photo
-
 
 class PhotoViewSet(viewsets.ModelViewSet):
     serializer_class = PhotoUploadSerializer
@@ -21,10 +16,11 @@ class PhotoViewSet(viewsets.ModelViewSet):
         if 'image' in data:
             exif_data = extract_geodata(data['image'])
             lat, lng = get_lat_lng(exif_data)
-            lat = "%.6f" % lat
-            lng = "%.6f" % lng
+            lat = float("%.6f" % lat)
+            lng = float("%.6f" % lng)
         user = self.request.user
-        serializer.save(lat=lat, lng=lng, user=user)
+        geo_location = Point(lng, lat)
+        serializer.save(geo_location=geo_location, user=user)
 
 class PhotoReadOnlySet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PhotoSerializer
@@ -38,3 +34,22 @@ class PhotoReadOnlySet(viewsets.ReadOnlyModelViewSet):
         user = self.request.user.id
         response.data = { user : { photo["id"] : photo for photo in response.data }} # customize the response data
         return response # return response with this custom representation
+
+class FilteredPhotoReadOnlySet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = FilteredPhotoSerializer
+    permissions_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        upper_lat = float(self.request.query_params.get('upperLat'))
+        lower_lat = float(self.request.query_params.get('lowerLat'))
+        left_lng = float(self.request.query_params.get('leftLng'))
+        right_lng = float(self.request.query_params.get('rightLng'))
+        
+        poly = Polygon(((left_lng, upper_lat), (right_lng, upper_lat), (right_lng, lower_lat), (left_lng, lower_lat), (left_lng, upper_lat)))
+        return Photo.objects.filter(user_id=self.request.user, geo_location__within=poly)
+
+    # def list(self, request, *args, **kwargs):
+    #     response = super(PhotoReadOnlySet, self).list(request, *args, **kwargs) # call the original 'list'
+    #     user = self.request.user.id
+    #     response.data = { user : { photo["id"] : photo for photo in response.data }} # customize the response data
+    #     return response # return response with this custom representation

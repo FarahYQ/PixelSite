@@ -1,0 +1,1 @@
+const map_api_key = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBQIYw6D7FkCN5PLxzZKR8xx2snWiFP5ME";

@@ -4,6 +4,7 @@ export const POST_PHOTO = 'POST_PHOTO';
 export const RECEIVE_PHOTO_ERRORS = 'RECEIVE_PHOTO_ERRORS';
 export const RECEIVE_ALL_PHOTOS = 'RECEIVE_ALL_PHOTOS';
 export const CLEAR_PHOTO_ERRORS = 'CLEAR_PHOTO_ERRORS';
+export const RECEIVE_SELECTED_PHOTOS = 'RECEIVE_SELECTED_PHOTOS';
 
 // actions
 export const postPhoto = payload => ({
@@ -25,14 +26,18 @@ export const receiveAllPhotos = payload => ({
     payload
 })
 
+export const receiveSelectedPhotos = payload => ({
+    type: RECEIVE_SELECTED_PHOTOS,
+    payload
+})
+
 // thunk functions
 export const addPhoto = photo => {
     return dispatch => {
         return PhotoAPIUtil.addPhoto(photo).then(
             payload => (
                 dispatch(postPhoto(payload))
-                ),
-            errs => dispatch(receivePhotoErrors(errs))
+            )
         );
     };
 };
@@ -44,3 +49,12 @@ export const getAllPhotos = () => {
         );
     };
 };
+
+export const getSelectedPhotos = boundaries => {
+    return dispatch => {
+        return PhotoAPIUtil.getSelectedPhotos(boundaries).then(
+            payload => dispatch(receiveSelectedPhotos(payload))
+        ); 
+    };
+};
+

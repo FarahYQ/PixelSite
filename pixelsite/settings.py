@@ -139,7 +139,7 @@ STATICFILES_DIRS = [
 ]
 
 # cors whitelist
-CORS_ORIGIN_WHITELIST = 'localhost8000',
+CORS_ORIGIN_WHITELIST = 'http://127.0.0.1:8000',
 
 # Setting up AWS S3 for file upload storage
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
