@@ -84,7 +84,7 @@ class Map extends Component {
                     <span className="map-title">PHOTO MAP</span>
                     <span className="map-instructions">
                         <div className="instructions">Upload photos.</div>
-                        <div className="instructions">Zoom in, zoom out, see photos only that region in your gallery!</div>
+                        <div className="instructions">Zoom in, zoom out, see photos from your selected area in the gallery!</div>
                     </span>
                 </div>
                 <div id='map' ref='map'/>
