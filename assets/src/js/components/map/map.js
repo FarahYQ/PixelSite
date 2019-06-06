@@ -72,12 +72,7 @@ class Map extends Component {
             boundaries['upperLat'] = bounds.getNorthEast().lat();
             boundaries['leftLng'] = bounds.getSouthWest().lng();
             boundaries['rightLng'] = bounds.getNorthEast().lng();
-            // if (boundaries['rightLng'] < boundaries['leftLng']) {
-            //     boundaries['rightLng'] = 169.98046875;
-            // }
-            // if (boundaries['leftLng'] > boundaries['rightLng']) {
-            //     boundaries['leftLng'] = -169.98046875;
-            // }
+
             this.props.getInBoundaryPhotos(boundaries)
         });
     }
@@ -88,9 +83,8 @@ class Map extends Component {
                 <div className="map-intro">
                     <span className="map-title">PHOTO MAP</span>
                     <span className="map-instructions">
-                        <div>This is a map of all your uploaded photos with location data.</div>
-                        <div>Pan, zoom in, or zoom out to select region.</div>
-                        <div>Photo gallery below will update with photos only in the region!</div>
+                        <div className="instructions">Upload photos.</div>
+                        <div className="instructions">Zoom in, zoom out, see photos only that region in your gallery!</div>
                     </span>
                 </div>
                 <div id='map' ref='map'/>

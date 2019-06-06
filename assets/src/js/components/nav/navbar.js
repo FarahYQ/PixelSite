@@ -22,7 +22,7 @@ class NavBar extends Component {
         if (this.props.currentUser) {
             leftNav = (
                 <span>
-                    <Link className="nav-options" to="/photos/add/">Add Photo</Link>
+                    <Link className="nav-options-add" to="/photos/add/">Add Photo</Link>
                     <a className="nav-options" href="https://github.com/FarahYQ/PixelSite" target="_blank">Git Repo</a>
                 </span>
             )
