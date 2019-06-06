@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .serializers import UserCreateSerializer, UserLoginSerializer, UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,7 +9,6 @@ from rest_framework import viewsets, permissions, generics
 from django.contrib.auth import login, authenticate, logout
 
 class UserCreate(generics.GenericAPIView):
-
     serializer_class = UserCreateSerializer
     permission_classes = [permissions.AllowAny]
     def post(self, request, format='json'):
