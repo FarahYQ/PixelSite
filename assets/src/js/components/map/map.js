@@ -90,7 +90,7 @@ class Map extends Component {
                     <span className="map-instructions">
                         <div>This is a map of all your uploaded photos with location data.</div>
                         <div>Pan, zoom in, or zoom out to select region.</div>
-                        <div>Only the photos that lie within that region will show up below!</div>
+                        <div>Photo gallery below will update with photos only in the region!</div>
                     </span>
                 </div>
                 <div id='map' ref='map'/>

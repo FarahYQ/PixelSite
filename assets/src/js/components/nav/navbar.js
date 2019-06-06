@@ -21,10 +21,10 @@ class NavBar extends Component {
         let leftNav;
         if (this.props.currentUser) {
             leftNav = (
-                <div>
+                <span>
                     <Link className="nav-options" to="/photos/add/">Add Photo</Link>
                     <a className="footer-options" href="https://github.com/FarahYQ/PixelSite" target="_blank">Git Repo</a>
-                </div>
+                </span>
             )
             rightNav = (
                 <div className="right-nav">
