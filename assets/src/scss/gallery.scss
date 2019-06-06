@@ -29,23 +29,31 @@
 }
 
 #map{
-    min-height: 500px;
+    min-height: 400px;
     max-width: 1000px;
     margin: auto;
     border: 2px solid #333;
+    margin-bottom: 40px;
+}
+
+.map-intro {
+    text-align: center;
+    margin-top: 7vh;
 }
 .map-title {
+    display: inline-block;
     font-family: Tahoma;
     text-align: center;
     padding: 5px;
+    font-weight: bold;
 }
 
 .map-instructions {
     font-family: Tahoma;
     text-align: center;
     padding: 5px;
-    font-weight: bold;
-    margin-bottom: 40px;
+    margin-top: 7vh;
+    margin-bottom: 1vh;
 }
 
 

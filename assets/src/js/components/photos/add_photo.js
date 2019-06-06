@@ -9,7 +9,7 @@ class AddPhoto extends Component {
         this.state = {
             caption: "",
             image: null,
-            location: "",
+            location: "null",
             description: "",
             lat: null,
             lng: null,
@@ -41,7 +41,7 @@ class AddPhoto extends Component {
             <div>
                 <ul>
                 {Object.keys(errors).map((key, index) => {
-                    return <li className="photoform-errors" key={index}>{`${key}: ${errors[key]}`}</li>
+                    return <li className="photoform-errors" key={index}>{`${errors[key]}`}</li>
                 })}
                 </ul>
             </div>
@@ -84,7 +84,7 @@ class AddPhoto extends Component {
             <div>
                 <form className="photo-form" onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="input-title">Photo Caption</div>
-                    <input type="value" onChange={this.update('caption')}/>
+                    <input className="photo-input" type="value" onChange={this.update('caption')}/>
 
                     <div className="input-title">Attach Photo</div>
                     <div className="input-tagline">(jpeg or jpg)</div>
@@ -94,14 +94,9 @@ class AddPhoto extends Component {
                         </div>
                     </div>
 
-
-                    <div className="input-title">Location</div>
-                    <div className="input-tagline">Add details about location like city, state, or country.</div>
-                    <input type="value" onChange={this.update('location')}/>
-
                     <div className="input-title">Photo Description</div>
                     <div className="input-tagline">Describe your photo in detail. What were you doing and who were you with? What do you love about this photo? This'll help you when searching later.</div>
-                    <textarea type="value" onChange={this.update('description')}></textarea>
+                    <textarea className="photo-input" type="value" onChange={this.update('description')}></textarea>
                     <div></div>
                     <div className="add-photo-errors">{this.renderErrors()}</div>
                     <br/>

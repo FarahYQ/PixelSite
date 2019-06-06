@@ -85,9 +85,15 @@ class Map extends Component {
     render() {
         return (
             <div>
-                <div className="map-title">PHOTO MAP</div>
+                <div className="map-intro">
+                    <span className="map-title">PHOTO MAP</span>
+                    <span className="map-instructions">
+                        <div>This is a map of all your uploaded photos with location data.</div>
+                        <div>Pan, zoom in, or zoom out to select region.</div>
+                        <div>Only the photos that lie within that region will show up below!</div>
+                    </span>
+                </div>
                 <div id='map' ref='map'/>
-                <div className="map-instructions">Pan, zoom in, or zoom out to select region!</div>
             </div>
         );
     }
