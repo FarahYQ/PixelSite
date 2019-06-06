@@ -88,22 +88,21 @@ WSGI_APPLICATION = 'pixelsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-import dj_database_url
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.contrib.gis.db.backends.postgis',
 #         'NAME': os.environ.get('PG_NAME'),
-#         'TEST': {
-#             'NAME': 'dcou6r12g2jbkd',
-#         },
+#         'USER': os.environ.get('PG_USER'),
+#         'PASSWORD': os.environ.get('PG_PASS'),
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+
 #     }
 # }
+import dj_database_url
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=500)
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
 
 
 # Password validation

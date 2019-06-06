@@ -1,14 +1,14 @@
 # PixelSite
-
+Check it out! [https://liftoff-go.herokuapp.com/#/]
 ## Objective
 Create a single page application for displaying the location of all your photos and searching for photos within a certain region.
 
 ## Tools: 
-⋅⋅* Postgres/PostGIS (for spatial database)
-⋅⋅* Django REST Framework (for RESTful API)
-⋅⋅* AWS S3 Storage (for image upload and storage)
-⋅⋅* Google Maps API (for displaying map)
-⋅⋅* React and Redux (for SPA and state management)
+- Postgres/PostGIS (for spatial database)
+- Django REST Framework (for RESTful API)
+-  AWS S3 Storage (for image upload and storage)
+- Google Maps API (for displaying map)
+- React and Redux (for SPA and state management)
 
 ## Features
 ### Extracting EXIF Data From Uploaded Photos

@@ -69,7 +69,8 @@ class AuthForm extends Component {
       <div>
         <ul>
           {Object.keys(errors).map((key, index) => {
-              return <li className="session-error-items" key={index}>{`${key}: ${errors[key]}`}</li>
+              const keyMessage = key === 'non_field_errors' ? "" : `${key}:`;
+              return <li className="session-error-items" key={index}>{`${keyMessage} ${errors[key]}`}</li>
           })}
         </ul>
       </div>
