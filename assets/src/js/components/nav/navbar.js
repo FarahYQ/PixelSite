@@ -21,7 +21,10 @@ class NavBar extends Component {
         let leftNav;
         if (this.props.currentUser) {
             leftNav = (
-                <Link className="nav-options" to="/photos/add/">Add Photo</Link>
+                <div>
+                    <Link className="nav-options" to="/photos/add/">Add Photo</Link>
+                    <a className="footer-options" href="https://github.com/FarahYQ/PixelSite" target="_blank">Git Repo</a>
+                </div>
             )
             rightNav = (
                 <div className="right-nav">
@@ -30,7 +33,7 @@ class NavBar extends Component {
                 </div>
             )
         } else {
-            leftNav = (<span></span>)
+            leftNav = (<span><a className="nav-options" href="https://github.com/FarahYQ/PixelSite" target="_blank">Git Repo</a></span>)
             rightNav = (
                 <div className="right-nav">
                     <Link className="nav-options" to="/register/">Signup</Link>
